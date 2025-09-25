@@ -122,10 +122,6 @@ async function handleStartGeneration() {
     // Record the generation for rate limiting
     const newStatus = recordGeneration(artwork.imageUrl, prompt);
     
-    // Store artwork and filters data for review page
-    localStorage.setItem('generatedArtwork', JSON.stringify(artwork));
-    localStorage.setItem('selectedFilters', JSON.stringify(selectedFilters));
-    
     // Hide loading
     hideLoading();
     
