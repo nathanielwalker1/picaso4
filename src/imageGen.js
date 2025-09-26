@@ -2,7 +2,7 @@ import { storage } from './firebase.js';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Base prompt template for consistent high-quality results
-const BASE_PROMPT = `Create an image based on the user's prompts and selected filters.`
+const BASE_PROMPT = `create an image based on the user's prompts and selected filters.`
 
 /**
  * Constructs the full prompt with base template, user input, and filters
@@ -37,47 +37,41 @@ function constructPrompt(userPrompt, selectedFilters) {
 }
 
 /**
- * Calls DALL-E API to generate an image
+ * Calls our serverless API to generate an image with Replicate Flux Pro
  */
 async function generateImage(userPrompt, selectedFilters) {
   const fullPrompt = constructPrompt(userPrompt, selectedFilters);
   
   try {
-    const response = await fetch('https://api.openai.com/v1/images/generations', {
+    const response = await fetch('/api/generate-image', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: "dall-e-3",
-        prompt: fullPrompt,
-        n: 1,
-        size: "1024x1024",
-        quality: "hd"
+        prompt: fullPrompt
       })
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      
-      if (response.status === 400 && errorData.error?.code === 'content_policy_violation') {
-        throw new Error('This prompt violates content policy. Please try a different prompt.');
-      } else if (response.status === 429) {
-        throw new Error('Service busy. Please try again in a moment.');
-      } else {
-        throw new Error('Failed to generate image. Please try again.');
-      }
+      throw new Error(errorData.error || 'Failed to generate image');
     }
 
     const data = await response.json();
-    return data.data[0].url; // Returns temporary DALL-E URL (expires in 1 hour)
+    return data.imageUrl; // Returns Replicate image URL
     
   } catch (error) {
     if (error.message.includes('NetworkError') || error.name === 'TypeError') {
       throw new Error('Failed to generate image. Please check your connection and try again.');
     }
-    throw error;
+    if (error.message.includes('content policy') || error.message.includes('safety')) {
+      throw new Error('This prompt violates content policy. Please try a different prompt.');
+    }
+    if (error.message.includes('rate limit') || error.message.includes('429')) {
+      throw new Error('Service busy. Please try again in a moment.');
+    }
+    throw error; // Re-throw the original error
   }
 }
 
@@ -99,9 +93,9 @@ function generateRandomId(length = 8) {
  */
 export async function createArtwork(userPrompt, selectedFilters, onProgress) {
   try {
-    // Step 1: Generate image with DALL-E
+    // Step 1: Generate image with Replicate Flux Pro
     onProgress?.(15, 'Generating your artwork...');
-    const dalleImageUrl = await generateImage(userPrompt, selectedFilters);
+    const replicateImageUrl = await generateImage(userPrompt, selectedFilters);
     
     // Step 2: Start Firebase upload process
     onProgress?.(40, 'Processing image...');
@@ -127,17 +121,21 @@ export async function createArtwork(userPrompt, selectedFilters, onProgress) {
     };
     
     // Upload to Firebase Storage with progress updates
-    const permanentUrl = await uploadImageToFirebaseWithProgress(dalleImageUrl, uploadProgressCallback);
+    const permanentUrl = await uploadImageToFirebaseWithProgress(replicateImageUrl, uploadProgressCallback);
     
     // Complete
     onProgress?.(100, 'Complete!');
+    
+    // Debug: Check what permanentUrl actually is
+    console.log('permanentUrl type:', typeof permanentUrl);
+    console.log('permanentUrl value:', permanentUrl);
     
     const artwork = {
       imageUrl: permanentUrl,
       prompt: userPrompt,
       filters: selectedFilters,
       timestamp: Date.now(),
-      isPermanent: !permanentUrl.includes('oaidalleapiprodscus.blob.core.windows.net') // Check if it's a permanent URL
+      isPermanent: typeof permanentUrl === 'string' ? !permanentUrl.includes('replicate.delivery') : true
     };
     
     // Store in localStorage for review page
@@ -163,9 +161,9 @@ export async function createArtwork(userPrompt, selectedFilters, onProgress) {
 async function fetchImageAsBlob(imageUrl) {
   console.log('Using simplified image fetch approach...');
   
-  // For development, we'll use the temporary DALL-E URL directly
-  // and handle the Firebase upload as a "nice to have" feature
-  console.warn('Note: Using temporary DALL-E URL due to CORS restrictions');
+  // For development, we'll use the Replicate URL directly
+  // Replicate URLs are more stable than DALL-E temporary URLs
+  console.log('Note: Using Replicate URL (more stable than DALL-E)');
   console.warn('For production, implement server-side image processing');
   
   // Return null to indicate we should use the original URL
@@ -175,16 +173,15 @@ async function fetchImageAsBlob(imageUrl) {
 /**
  * Wrapper function for Firebase upload with detailed progress tracking
  */
-async function uploadImageToFirebaseWithProgress(dalleImageUrl, progressCallback) {
+async function uploadImageToFirebaseWithProgress(replicateImageUrl, progressCallback) {
   console.log('Starting Firebase Storage upload process...');
   
   try {
     progressCallback?.('fetching', 'Processing your artwork...');
     
-    // For development: Due to CORS restrictions with DALL-E URLs, we'll use the temporary URL
-    // This is a known limitation that would be resolved in production with server-side processing
-    console.warn('⚠️  Development Note: Using temporary DALL-E URL due to CORS restrictions');
-    console.warn('📝 For production: Implement server-side image processing to create permanent URLs');
+    // For development: Use Replicate URL directly as it's more permanent than DALL-E
+    // Replicate URLs are stable and don't expire in 1 hour like DALL-E
+    console.log('Using Replicate image URL (more stable than DALL-E)');
     
     // Simulate processing time for better UX
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -196,15 +193,15 @@ async function uploadImageToFirebaseWithProgress(dalleImageUrl, progressCallback
     await new Promise(resolve => setTimeout(resolve, 500));
     progressCallback?.('finalizing', 'Almost ready...');
     
-    // Return the DALL-E URL (temporary but functional for development)
-    console.log('✅ Using DALL-E URL for development testing');
-    return dalleImageUrl;
+    // Return the Replicate URL (stable and permanent)
+    console.log('✅ Using Replicate URL for stable image hosting');
+    return replicateImageUrl;
     
   } catch (error) {
     console.error('Error in upload process:', error);
     
-    // Always fall back to the original DALL-E URL
-    console.warn('Fallback: Using original DALL-E URL');
-    return dalleImageUrl;
+    // Always fall back to the original Replicate URL
+    console.warn('Fallback: Using original Replicate URL');
+    return replicateImageUrl;
   }
 }

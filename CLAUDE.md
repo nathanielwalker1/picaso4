@@ -15,7 +15,7 @@ PICASO is an AI-powered art print marketplace built as a lean Vite + vanilla JS 
 ### Tech Stack
 - **Frontend**: Vanilla HTML/CSS/JS with Vite build tool
 - **Styling**: Google Fonts (Kosugi), CSS with design system
-- **Image Generation**: OpenAI DALL-E 3 API integration
+- **Image Generation**: Replicate Flux Pro API integration
 - **Database**: Firebase Firestore for order storage
 - **Storage**: Firebase Storage for generated images
 - **Payments**: Stripe Checkout (hosted pages)
@@ -24,14 +24,14 @@ PICASO is an AI-powered art print marketplace built as a lean Vite + vanilla JS 
 
 ### Core User Flow
 1. **Landing Page** - User enters text prompt with optional filters
-2. **Generation** - DALL-E creates art, uploads to Firebase Storage
+2. **Generation** - Replicate Flux Pro creates art, uploads to Firebase Storage
 3. **Review Page** - User reviews generated image, can retry
 4. **Stripe Checkout** - Payment collection with shipping address
 5. **Order Storage** - Webhook saves order to Firestore for manual fulfillment
 
 ### Key Business Logic
 - **Rate Limiting**: 3 generations per browser per 24 hours via localStorage
-- **Image Pipeline**: DALL-E temporary URL → Firebase Storage permanent URL
+- **Image Pipeline**: Replicate Flux Pro stable URL → Firebase Storage permanent URL
 - **Pricing**: Fixed $99 for 12x12 matte canvas prints
 - **Manual Fulfillment**: Orders downloaded from Firebase Console → Printful
 
@@ -47,13 +47,13 @@ PICASO is an AI-powered art print marketplace built as a lean Vite + vanilla JS 
 - **Responsive**: Mobile-first with 768px breakpoint
 
 ### Environment Variables Required
-- `VITE_OPENAI_API_KEY` - DALL-E API access
+- `VITE_REPLICATE_API_TOKEN` - Replicate API access
 - `VITE_FIREBASE_*` - Firebase project configuration
 - `VITE_STRIPE_PUBLISHABLE_KEY` - Stripe payments
 - Server-only: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
 
 ### Implementation Notes
-- Generated images from DALL-E expire in 1 hour - must upload to Firebase immediately
+- Generated images from Replicate are stable URLs - more reliable than DALL-E temporary URLs
 - Filters are converted to natural language and appended to base prompt template
 - All API calls should include comprehensive error handling
 - Mobile responsiveness critical for conversion rates

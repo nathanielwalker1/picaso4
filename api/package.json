@@ -4,6 +4,7 @@
   "description": "Serverless functions for PICASO",
   "main": "create-checkout-session.js",
   "dependencies": {
-    "stripe": "^12.18.0"
+    "stripe": "^12.18.0",
+    "replicate": "^0.29.4"
   }
 }

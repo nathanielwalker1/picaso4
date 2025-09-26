@@ -8,8 +8,8 @@ Transform your imagination into quality art prints with AI-generated artwork.
 
 1. **Environment Variables**: Create a `.env` file with:
    ```env
-   # OpenAI API
-   VITE_OPENAI_API_KEY=sk-...your_openai_api_key
+   # Replicate API
+   VITE_REPLICATE_API_TOKEN=r8_...your_replicate_api_token
 
    # Firebase Configuration
    VITE_FIREBASE_API_KEY=AIza...
@@ -31,23 +31,21 @@ Transform your imagination into quality art prints with AI-generated artwork.
 
 ### Running the Application
 
-**Option 1: Run both servers simultaneously**
+Use Vercel's development server (recommended):
 ```bash
-npm run dev:full
-```
-
-**Option 2: Run servers separately**
-```bash
-# Terminal 1: Start API server
-npm run dev:api
-
-# Terminal 2: Start frontend
-npm run dev
+vercel dev
 ```
 
 This will start:
-- Frontend dev server: http://localhost:5173
-- API server: http://localhost:3001
+- Frontend dev server: http://localhost:3000
+- All `/api` serverless functions locally
+- Hot-reload for both frontend and backend changes
+
+**Alternative (frontend only):**
+```bash
+npm run dev
+```
+Note: This only runs the frontend and won't include serverless functions.
 
 ### Testing Stripe Integration
 
@@ -69,7 +67,7 @@ picaso4/
 │   ├── main.js            # Landing page logic
 │   ├── review.js          # Review page logic
 │   ├── success.js         # Success page logic
-│   ├── imageGen.js        # DALL-E & Firebase integration
+│   ├── imageGen.js        # Replicate Flux Pro & Firebase integration
 │   ├── rateLimit.js       # Rate limiting logic
 │   ├── stripe.js          # Stripe integration
 │   ├── firebase.js        # Firebase configuration
@@ -95,7 +93,7 @@ npm run build
 
 ## Features
 
-- ✅ AI Image Generation (DALL-E 3)
+- ✅ AI Image Generation (Replicate Flux Pro)
 - ✅ Firebase Storage for permanent image hosting
 - ✅ Rate limiting (3 generations per 24 hours)
 - ✅ Retry functionality with prompt editing

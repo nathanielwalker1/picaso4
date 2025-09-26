@@ -10,7 +10,7 @@ console.log('🔍 PICASO Development Setup Check\n');
 // Check environment variables
 console.log('📋 Environment Variables:');
 const requiredEnvVars = [
-  'VITE_OPENAI_API_KEY',
+  'VITE_REPLICATE_API_TOKEN',
   'VITE_STRIPE_PUBLISHABLE_KEY', 
   'STRIPE_SECRET_KEY',
   'VITE_FIREBASE_API_KEY',
