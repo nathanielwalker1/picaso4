@@ -9,6 +9,11 @@ const reviewPrompt = document.getElementById('reviewPrompt');
 const retryBtn = document.getElementById('retryBtn');
 const continueBtn = document.getElementById('continueBtn');
 const backBtn = document.getElementById('backBtn');
+const filterBtn = document.getElementById('filterBtn');
+const filterModal = document.getElementById('filterModal');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const closeModal = document.getElementById('closeModal');
+const applyFilters = document.getElementById('applyFilters');
 const loadingScreen = document.getElementById('loadingScreen');
 const loadingProgress = document.getElementById('loadingProgress');
 const loadingText = document.getElementById('loadingText');
@@ -32,16 +37,87 @@ function initializePage() {
     }
     
     currentArtwork = JSON.parse(artworkData);
-    currentFilters = filtersData ? JSON.parse(filtersData) : {};
+    currentFilters = filtersData ? JSON.parse(filtersData) : {
+      medium: [],
+      style: [],
+      tone: [],
+      realism: []
+    };
     
     // Display the artwork
     generatedImage.src = currentArtwork.imageUrl;
     generatedImage.alt = `Generated artwork: ${currentArtwork.prompt}`;
     reviewPrompt.value = currentArtwork.prompt;
     
+    // Initialize filter checkboxes with current selections
+    initializeFilterCheckboxes();
+    updateFilterButtonState();
+    
   } catch (error) {
     console.error('Error initializing review page:', error);
     window.location.href = '/';
+  }
+}
+
+// Filter modal functionality
+function openFilterModal() {
+  filterModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFilterModal() {
+  filterModal.classList.remove('show');
+  document.body.style.overflow = 'auto';
+}
+
+// Initialize filter checkboxes with current selections
+function initializeFilterCheckboxes() {
+  document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {
+    const category = checkbox.closest('.filter-category').querySelector('h4').textContent.toLowerCase();
+    const value = checkbox.value;
+    
+    if (currentFilters[category] && currentFilters[category].includes(value)) {
+      checkbox.checked = true;
+    }
+    
+    // Add event listener
+    checkbox.addEventListener('change', handleFilterChange);
+  });
+}
+
+function handleFilterChange(event) {
+  const checkbox = event.target;
+  const category = checkbox.closest('.filter-category').querySelector('h4').textContent.toLowerCase();
+  const value = checkbox.value;
+  
+  if (checkbox.checked) {
+    if (!currentFilters[category].includes(value)) {
+      currentFilters[category].push(value);
+    }
+  } else {
+    currentFilters[category] = currentFilters[category].filter(item => item !== value);
+  }
+}
+
+function applySelectedFilters() {
+  // Update localStorage with new filters
+  localStorage.setItem('selectedFilters', JSON.stringify(currentFilters));
+  
+  // Update filter button visual state
+  updateFilterButtonState();
+  
+  closeFilterModal();
+}
+
+function updateFilterButtonState() {
+  const hasFilters = Object.values(currentFilters).some(arr => arr.length > 0);
+  
+  if (hasFilters) {
+    filterBtn.style.backgroundColor = '#8B5CF6';
+    filterBtn.style.color = 'white';
+  } else {
+    filterBtn.style.backgroundColor = '';
+    filterBtn.style.color = '';
   }
 }
 
@@ -214,6 +290,19 @@ function handleBack() {
 retryBtn.addEventListener('click', handleRetry);
 continueBtn.addEventListener('click', handleContinue);
 backBtn.addEventListener('click', handleBack);
+
+// Filter modal event listeners
+filterBtn.addEventListener('click', openFilterModal);
+closeModal.addEventListener('click', closeFilterModal);
+modalBackdrop.addEventListener('click', closeFilterModal);
+applyFilters.addEventListener('click', applySelectedFilters);
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape' && filterModal.classList.contains('show')) {
+    closeFilterModal();
+  }
+});
 
 // Handle browser back button
 window.addEventListener('popstate', handleBack);

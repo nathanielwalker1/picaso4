@@ -165,7 +165,12 @@ body {
 }
 
 .step {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  text-align: left;
+  min-height: 120px;
+  padding: 20px 0;
 }
 
 .step-icon {
@@ -176,8 +181,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
   color: #6B7280;
+  flex-shrink: 0;
+  padding: 16px;
+}
+
+.step-content {
+  margin-top: 0;
 }
 
 .step-content h3 {
@@ -185,6 +195,7 @@ body {
   font-weight: 500;
   color: #111827;
   line-height: 1.5;
+  margin: 0;
 }
 
 /* Recently Created Section */
@@ -206,11 +217,12 @@ body {
 
 .gallery-image {
   width: 100%;
-  height: 200px;
+  height: auto;
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   margin-bottom: 12px;
+  aspect-ratio: 3/4; /* iPhone portrait aspect ratio (4:3 rotated = 3:4) */
 }
 
 .gallery-caption {
@@ -558,10 +570,15 @@ body {
   margin-bottom: 16px;
 }
 
+.prompt-input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
 .prompt-textarea {
   width: 100%;
   min-height: 80px;
-  padding: 16px;
+  padding: 16px 56px 16px 16px; /* Extra right padding for filter button */
   border: 2px solid #E5E7EB;
   border-radius: 8px;
   font-family: 'Kosugi', sans-serif;
@@ -569,7 +586,26 @@ body {
   color: #111827;
   background: #F9FAFB;
   resize: vertical;
-  margin-bottom: 16px;
+}
+
+.prompt-input-group .filter-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: #6B7280;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.prompt-input-group .filter-btn:hover {
+  background: #F3F4F6;
+  color: #8B5CF6;
 }
 
 .retry-btn {

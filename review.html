@@ -55,7 +55,14 @@
           <!-- Your Prompt Section -->
           <div class="prompt-section-review">
             <h3>Your Prompt</h3>
-            <textarea id="reviewPrompt" class="prompt-textarea" readonly></textarea>
+            <div class="prompt-input-group">
+              <textarea id="reviewPrompt" class="prompt-textarea"></textarea>
+              <button class="filter-btn" id="filterBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"/>
+                </svg>
+              </button>
+            </div>
             <button class="retry-btn" id="retryBtn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
@@ -102,6 +109,70 @@
       </div>
     </div>
   </main>
+
+  <!-- Filter Modal -->
+  <div id="filterModal" class="modal">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Filters</h3>
+        <button class="modal-close" id="closeModal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="filter-category">
+          <h4>Medium</h4>
+          <div class="filter-options">
+            <label><input type="checkbox" value="Oil painting"> Oil painting</label>
+            <label><input type="checkbox" value="Watercolor"> Watercolor</label>
+            <label><input type="checkbox" value="Digital art"> Digital art</label>
+            <label><input type="checkbox" value="Pencil sketch"> Pencil sketch</label>
+            <label><input type="checkbox" value="Acrylic painting"> Acrylic painting</label>
+          </div>
+        </div>
+        
+        <div class="filter-category">
+          <h4>Style</h4>
+          <div class="filter-options">
+            <label><input type="checkbox" value="Impressionist"> Impressionist</label>
+            <label><input type="checkbox" value="Abstract"> Abstract</label>
+            <label><input type="checkbox" value="Renaissance"> Renaissance</label>
+            <label><input type="checkbox" value="Pop art"> Pop art</label>
+            <label><input type="checkbox" value="Minimalist"> Minimalist</label>
+          </div>
+        </div>
+        
+        <div class="filter-category">
+          <h4>Tone</h4>
+          <div class="filter-options">
+            <label><input type="checkbox" value="Warm and cozy"> Warm and cozy</label>
+            <label><input type="checkbox" value="Cool and serene"> Cool and serene</label>
+            <label><input type="checkbox" value="Bold and vibrant"> Bold and vibrant</label>
+            <label><input type="checkbox" value="Soft and dreamy"> Soft and dreamy</label>
+            <label><input type="checkbox" value="Dark and moody"> Dark and moody</label>
+          </div>
+        </div>
+        
+        <div class="filter-category">
+          <h4>Realism</h4>
+          <div class="filter-options">
+            <label><input type="checkbox" value="Pure Abstract"> Pure Abstract</label>
+            <label><input type="checkbox" value="Stylized Flair"> Stylized Flair</label>
+            <label><input type="checkbox" value="Painterly Realism"> Painterly Realism</label>
+            <label><input type="checkbox" value="Photo-Realistic"> Photo-Realistic</label>
+            <label><input type="checkbox" value="Hyper-Realistic"> Hyper-Realistic</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-apply" id="applyFilters">Apply Filters</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Loading Screen (for retry) -->
   <div id="loadingScreen" class="loading-screen">

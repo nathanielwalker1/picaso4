@@ -2,7 +2,7 @@ import { storage } from './firebase.js';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Base prompt template for consistent high-quality results
-const BASE_PROMPT = `Create a high-quality image suitable for printing on canvas, based on the user's prompt and filters.`
+const BASE_PROMPT = `Create an image based on the user's prompts and selected filters.`
 
 /**
  * Constructs the full prompt with base template, user input, and filters

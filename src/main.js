@@ -122,16 +122,11 @@ async function handleStartGeneration() {
     // Record the generation for rate limiting
     const newStatus = recordGeneration(artwork.imageUrl, prompt);
     
-    // Hide loading
-    hideLoading();
-    
-    // Show remaining attempts if any
+    // Show remaining attempts if any (while loading screen is still visible)
     showRemainingAttempts(newStatus.remaining);
     
-    // Small delay to show the notification, then navigate
-    setTimeout(() => {
-      window.location.href = '/review.html';
-    }, 1000);
+    // Redirect immediately to eliminate any flash
+    window.location.href = '/review.html';
     
   } catch (error) {
     console.error('Error generating artwork:', error);
