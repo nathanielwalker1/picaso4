@@ -1,0 +1,9 @@
+{
+  "name": "picaso-api",
+  "version": "1.0.0",
+  "description": "Serverless functions for PICASO",
+  "main": "create-checkout-session.js",
+  "dependencies": {
+    "stripe": "^12.18.0"
+  }
+}

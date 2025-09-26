@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed - PICASO</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="nav">
+        <div class="logo">PICASO</div>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/about.html">About</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="success-page">
+    <div class="container">
+      
+      <!-- Success Icon -->
+      <div class="success-icon">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22,4 12,14.01 9,11.01"/>
+        </svg>
+      </div>
+
+      <!-- Success Message -->
+      <div class="success-content">
+        <h1 class="success-title">Order Confirmed!</h1>
+        <p class="success-subtitle">Thank you for your purchase. Your custom AI art print is being prepared for shipment.</p>
+      </div>
+
+      <!-- Order Details -->
+      <div class="order-details">
+        <h2>Order Details</h2>
+        
+        <div class="order-summary">
+          <div class="order-item">
+            <div class="item-info">
+              <h3>Custom AI Art Print</h3>
+              <p>Size: 12" × 12"</p>
+              <p>Frame: Ayous wood frame</p>
+              <p>Finish: Premium matte canvas</p>
+            </div>
+            <div class="item-price">$99.00</div>
+          </div>
+        </div>
+
+        <div class="order-meta">
+          <div class="meta-item">
+            <span class="meta-label">Order ID:</span>
+            <span class="meta-value" id="orderSessionId">Loading...</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Estimated Delivery:</span>
+            <span class="meta-value" id="estimatedDelivery">7 business days</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- What's Next -->
+      <div class="whats-next">
+        <h2>What's Next?</h2>
+        <div class="next-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Order Processing</h3>
+              <p>Your custom artwork is being prepared for printing on premium matte canvas</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Quality Check</h3>
+              <p>Each print undergoes careful quality inspection before framing</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Secure Packaging</h3>
+              <p>Your framed artwork is carefully packaged for safe delivery</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Delivery</h3>
+              <p>Your unique art piece arrives at your doorstep within 7 business days</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact & Support -->
+      <div class="support-section">
+        <h2>Questions or Concerns?</h2>
+        <p>We're here to help! If you have any questions about your order or need assistance, please contact us:</p>
+        
+        <div class="support-contact">
+          <div class="contact-method">
+            <strong>Email:</strong> <a href="mailto:support@picaso.art">support@picaso.art</a>
+          </div>
+          <div class="contact-method">
+            <strong>Response Time:</strong> Within 24 hours
+          </div>
+        </div>
+        
+        <p class="support-note">Please include your order ID in any correspondence.</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="success-actions">
+        <a href="/" class="btn-primary">Create Another Masterpiece</a>
+        <a href="/about.html" class="btn-secondary">Learn More About PICASO</a>
+      </div>
+
+      <!-- Footer Message -->
+      <div class="success-footer">
+        <p>Thank you for being one of the first users of PICASO. We're excited to see your artwork come to life! 🎨</p>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module" src="/src/success.js"></script>
+</body>
+</html>

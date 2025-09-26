@@ -1,6 +1,7 @@
 import './style.css';
 import { createArtwork } from './imageGen.js';
 import { getRateLimitStatus, recordGeneration, showRateLimitModal, showRemainingAttempts } from './rateLimit.js';
+import { createCheckoutSession } from './stripe.js';
 
 // DOM Elements
 const generatedImage = document.getElementById('generatedImage');
@@ -166,10 +167,37 @@ async function confirmRetry() {
 }
 
 // Handle continue to checkout
-function handleContinue() {
-  // TODO: Implement Stripe checkout
-  console.log('Continue to checkout with artwork:', currentArtwork);
-  alert('Checkout integration will be implemented next! 🛒');
+async function handleContinue() {
+  try {
+    console.log('Starting checkout process...');
+    
+    // Validate artwork data
+    if (!currentArtwork || !currentArtwork.imageUrl || !currentArtwork.prompt) {
+      throw new Error('Missing artwork data. Please regenerate your image.');
+    }
+    
+    // Disable button to prevent double clicks
+    continueBtn.disabled = true;
+    continueBtn.textContent = 'Processing...';
+    continueBtn.style.cursor = 'not-allowed';
+    
+    // Create checkout session and redirect to Stripe
+    await createCheckoutSession(currentArtwork.imageUrl, currentArtwork.prompt);
+    
+    // If we reach here, there was an error (normal flow redirects away)
+    console.error('Checkout redirect failed - user is still on page');
+    
+  } catch (error) {
+    console.error('Checkout error:', error);
+    
+    // Re-enable button
+    continueBtn.disabled = false;
+    continueBtn.textContent = 'Continue';
+    continueBtn.style.cursor = 'pointer';
+    
+    // Show error to user
+    alert(error.message || 'Failed to start checkout. Please try again.');
+  }
 }
 
 // Handle back button
