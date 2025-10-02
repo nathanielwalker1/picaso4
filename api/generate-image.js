@@ -35,11 +35,12 @@ export default async function handler(req, res) {
 
     // Call Replicate API using the correct format from docs
     const input = {
-      prompt: prompt
+      prompt: prompt,
+      aspect_ratio: "1:1"
     };
 
-    console.log('Running Flux Schnell with prompt:', prompt);
-    const output = await replicate.run("black-forest-labs/flux-schnell", { input });
+    console.log('Running Leonardo AI Lucid Origin with prompt:', prompt);
+    const output = await replicate.run("leonardoai/lucid-origin", { input });
     
     console.log('Replicate output:', output);
     console.log('Output type:', typeof output);
