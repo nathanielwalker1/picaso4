@@ -30,33 +30,94 @@
   <main>
     <section class="hero">
       <div class="container">
-        <h1 class="hero-title">PICASO</h1>
-        <p class="hero-subtitle">Turn your imagination into gallery-quality art prints</p>
+        <h1 class="hero-title">ART TO HANG ON<br>YOUR WALL.</h1>
+        <p class="hero-subtitle">your gallery-quality art printed and<br>delivered to your door</p>
         
-        <!-- Prompt Input Section -->
+        <!-- Text Input Section -->
         <div class="prompt-section">
           <div class="prompt-input-container">
-            <button class="filter-icon" id="filterBtn" aria-label="Open filters">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="4" y1="21" x2="4" y2="14"></line>
-                <line x1="4" y1="10" x2="4" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12" y2="3"></line>
-                <line x1="20" y1="21" x2="20" y2="16"></line>
-                <line x1="20" y1="12" x2="20" y2="3"></line>
-                <line x1="1" y1="14" x2="7" y2="14"></line>
-                <line x1="9" y1="8" x2="15" y2="8"></line>
-                <line x1="17" y1="16" x2="23" y2="16"></line>
-              </svg>
-            </button>
             <input 
               type="text" 
               id="promptInput"
               class="prompt-input" 
-              placeholder="A synthwave sunset of a futuristic retro city"
+              placeholder="A minimalist landscape with rolling hills at sunset"
               maxlength="500"
             >
-            <button class="start-btn" id="startBtn" disabled>Start</button>
+            <button class="start-btn" id="startBtn">Create</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Trending Section -->
+    <section class="trending-section">
+      <div class="container">
+        <h2 class="trending-title">trending</h2>
+        <div class="carousel-container">
+          <button class="carousel-scroll-btn carousel-scroll-left" id="trendingScrollLeftBtn" aria-label="Scroll left">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"></polyline>
+            </svg>
+          </button>
+          <div class="trending-carousel" id="trendingCarousel">
+            <div class="trending-item">
+              <div class="trending-image">
+                <img src="/src/assets/french.png" alt="French Academic Realism">
+              </div>
+              <h3 class="trending-style-title">FRENCH ACADEMIC REALISM</h3>
+              <button class="try-this-btn" data-style="french">Try this</button>
+            </div>
+            
+            <div class="trending-item">
+              <div class="trending-image">
+                <img src="/src/assets/dutch.png" alt="Dutch Renaissance">
+              </div>
+              <h3 class="trending-style-title">DUTCH RENAISSANCE</h3>
+              <button class="try-this-btn" data-style="dutch">Try this</button>
+            </div>
+            
+            <div class="trending-item">
+              <div class="trending-image">
+                <img src="/src/assets/japan.png" alt="Edo Japan Core">
+              </div>
+              <h3 class="trending-style-title">EDO JAPAN CORE</h3>
+              <button class="try-this-btn" data-style="japan">Try this</button>
+            </div>
+            
+            <div class="trending-item">
+              <div class="trending-image">
+                <img src="/src/assets/flower.png" alt="Edo Style Variation">
+              </div>
+              <h3 class="trending-style-title">BOHO ABSTRACT</h3>
+              <button class="try-this-btn" data-style="edo">Try this</button>
+            </div>
+          </div>
+          <button class="carousel-scroll-btn carousel-scroll-right" id="trendingScrollRightBtn" aria-label="Scroll right">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- As Seen On Section -->
+    <section class="as-seen-on">
+      <div class="container">
+        <p class="as-seen-title">As seen on</p>
+        <div class="social-logos">
+          <div class="social-logo tiktok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.321 5.562a5.122 5.122 0 0 1-.443-.258 6.229 6.229 0 0 1-1.137-.966c-.849-.962-1.248-2.159-1.284-2.677L16.454 1.5h-3.22v14.135c0 .284-.016.566-.047.845a3.78 3.78 0 0 1-3.548 3.048 3.78 3.78 0 0 1-3.548-3.048 3.78 3.78 0 0 1 0-1.69 3.78 3.78 0 0 1 3.548-3.048c.4 0 .784.063 1.146.18v-3.279c-1.565-.154-3.141.17-4.54.93a6.845 6.845 0 0 0-2.465 2.465 6.845 6.845 0 0 0-.93 4.54v.001c.002 1.897.796 3.706 2.202 5.021a7.132 7.132 0 0 0 5.021 2.202 7.132 7.132 0 0 0 5.021-2.202 7.132 7.132 0 0 0 2.202-5.021V8.267a9.326 9.326 0 0 0 5.483 1.755V6.843a6.229 6.229 0 0 1-3.142-1.281z"/>
+            </svg>
+            <span>TikTok</span>
+          </div>
+          <div class="social-logo pinterest">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.098.119.112.223.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378 0 0-.599 2.282-.744 2.840-.282 1.084-1.064 2.456-1.549 3.235C9.584 23.815 10.77 24.001 12.017 24.001c6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
+            </svg>
+            <span>Pinterest</span>
           </div>
         </div>
       </div>
@@ -107,111 +168,27 @@
       </div>
     </section>
 
-    <!-- Recently Created Section -->
-    <section class="recently-created">
+    <!-- Customer Photos Section -->
+    <section class="customer-photos">
       <div class="container">
-        <h2 class="section-title">Recently created</h2>
-        <div class="gallery-carousel">
-          <div class="gallery-item">
-            <img src="/src/assets/alex.jpg" alt="Art by Alex" class="gallery-image">
-            <p class="gallery-caption">Alex, Brooklyn</p>
+        <div class="photos-grid">
+          <div class="photo-item">
+            <img src="/src/assets/alex.jpg" alt="Customer room installation" class="room-photo">
+            <p class="photo-quote">"Been thinking about this one concept for months. It fits so well on my wall."</p>
           </div>
-          <div class="gallery-item">
-            <img src="/src/assets/fabian.png" alt="Art by Fabian" class="gallery-image">
-            <p class="gallery-caption">Fabian, New York City</p>
+          <div class="photo-item">
+            <img src="/src/assets/jordan.jpg" alt="Customer room installation" class="room-photo">
+            <p class="photo-quote">"Been thinking about this one concept for months. It fits so well on my wall."</p>
           </div>
-          <div class="gallery-item">
-            <img src="/src/assets/gunner.png" alt="Art by Gunner" class="gallery-image">
-            <p class="gallery-caption">Gunner, New York City</p>
-          </div>
-          <div class="gallery-item">
-            <img src="/src/assets/jordan.jpg" alt="Art by Jordan" class="gallery-image">
-            <p class="gallery-caption">Jordan, Los Angeles</p>
+          <div class="photo-item">
+            <img src="/src/assets/fabian.png" alt="Customer room installation" class="room-photo">
+            <p class="photo-quote">"Been thinking about this one concept for months. It fits so well on my wall."</p>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Filter Modal -->
-  <div id="filterModal" class="modal">
-    <div class="modal-backdrop" id="modalBackdrop"></div>
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Filters</h3>
-        <button class="modal-close" id="closeModal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="filter-category">
-          <h4>Medium</h4>
-          <div class="filter-options">
-            <label><input type="checkbox" value="Oil on Canvas"> Oil on Canvas</label>
-            <label><input type="checkbox" value="Watercolor Wash"> Watercolor Wash</label>
-            <label><input type="checkbox" value="Digital Graphic Design"> Digital Graphic Design</label>
-            <label><input type="checkbox" value="Photography"> Photography</label>
-            <label><input type="checkbox" value="Painting"> Painting</label>
-            <label><input type="checkbox" value="3D Visualization"> 3D Visualization</label>
-          </div>
-        </div>
-        
-        <div class="filter-category">
-          <h4>Style</h4>
-          <div class="filter-options">
-            <label><input type="checkbox" value="Bending Surrealism"> Bending Surrealism</label>
-            <label><input type="checkbox" value="Light Impressionism"> Light Impressionism</label>
-            <label><input type="checkbox" value="Modern Cubism"> Modern Cubism</label>
-            <label><input type="checkbox" value="Americana Spirit"> Americana Spirit</label>
-            <label><input type="checkbox" value="90s Vaporwave"> 90s Vaporwave</label>
-            <label><input type="checkbox" value="Anime"> Anime</label>
-          </div>
-        </div>
-        
-        <div class="filter-category">
-          <h4>Tone</h4>
-          <div class="filter-options">
-            <label><input type="checkbox" value="Radiant & Luminous"> Radiant & Luminous</label>
-            <label><input type="checkbox" value="Epic Cinematic"> Epic Cinematic</label>
-            <label><input type="checkbox" value="Playful Surreal"> Playful Surreal</label>
-            <label><input type="checkbox" value="Futuristic Vision"> Futuristic Vision</label>
-            <label><input type="checkbox" value="Shadowed & Obscured"> Shadowed & Obscured</label>
-            <label><input type="checkbox" value="Vivid Expression"> Vivid Expression</label>
-          </div>
-        </div>
-        
-        <div class="filter-category">
-          <h4>Realism</h4>
-          <div class="filter-options">
-            <label><input type="checkbox" value="Pure Abstract"> Pure Abstract</label>
-            <label><input type="checkbox" value="Stylized Flair"> Stylized Flair</label>
-            <label><input type="checkbox" value="Painterly Realism"> Painterly Realism</label>
-            <label><input type="checkbox" value="Photo-Realistic"> Photo-Realistic</label>
-            <label><input type="checkbox" value="Hyper-Realistic"> Hyper-Realistic</label>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-apply" id="applyFilters">Apply Filters</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Loading Screen -->
-  <div id="loadingScreen" class="loading-screen">
-    <div class="loading-content">
-      <div class="loading-icon">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/>
-          <path d="m2.5 21.5 5.25-5.25L10 18.5 21.5 7l-3.5-3.5L6.5 15 4.25 12.75"/>
-        </svg>
-      </div>
-      <h2 class="loading-title">Creating your masterpiece...</h2>
-      <div class="loading-bar">
-        <div class="loading-progress" id="loadingProgress"></div>
-      </div>
-      <p class="loading-text" id="loadingText">Generating your artwork...</p>
-      <div class="loading-percentage" id="loadingPercentage">0%</div>
-    </div>
-  </div>
 
   <script type="module" src="/src/main.js"></script>
 </body>

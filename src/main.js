@@ -14,6 +14,8 @@ const loadingScreen = document.getElementById('loadingScreen');
 const loadingProgress = document.getElementById('loadingProgress');
 const loadingText = document.getElementById('loadingText');
 const loadingPercentage = document.getElementById('loadingPercentage');
+const trendingScrollLeftBtn = document.getElementById('trendingScrollLeftBtn');
+const trendingScrollRightBtn = document.getElementById('trendingScrollRightBtn');
 
 // State
 let selectedFilters = {
@@ -93,6 +95,79 @@ function updateProgress(percentage, text) {
   }
 }
 
+// Scroll trending carousel right with infinite loop
+function scrollTrendingCarouselRight() {
+  const carousel = document.getElementById('trendingCarousel');
+  if (carousel) {
+    console.log('Scrolling trending carousel right...'); // Debug log
+    const scrollAmount = 244; // Item width (220px) + gap (24px) - exactly one image
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    
+    // Check if we're at or near the end
+    if (carousel.scrollLeft >= maxScroll - 10) {
+      // Loop back to the beginning
+      carousel.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      // Normal scroll right
+      carousel.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+
+// Scroll trending carousel left with infinite loop
+function scrollTrendingCarouselLeft() {
+  const carousel = document.getElementById('trendingCarousel');
+  if (carousel) {
+    console.log('Scrolling trending carousel left...'); // Debug log
+    const scrollAmount = 244; // Item width (220px) + gap (24px) - exactly one image
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    
+    // Check if we're at or near the beginning
+    if (carousel.scrollLeft <= 10) {
+      // Loop to the end
+      carousel.scrollTo({
+        left: maxScroll,
+        behavior: 'smooth'
+      });
+    } else {
+      // Normal scroll left
+      carousel.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+
+// Try This button functionality
+function handleTryThisClick(event) {
+  const button = event.target;
+  const style = button.getAttribute('data-style');
+  
+  // You can customize these prompts based on the style
+  const stylePrompts = {
+    'french': 'A romantic scene in French Academic style with dramatic lighting',
+    'dutch': 'A maritime scene in Dutch Renaissance style with rich colors',
+    'japan': 'A minimalist scene in Edo Japanese style with natural elements',
+    'edo': 'A beautiful still life with flowers in artistic style'
+  };
+  
+  if (stylePrompts[style] && promptInput) {
+    promptInput.value = stylePrompts[style];
+    validatePrompt();
+    
+    // Scroll to input
+    promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    promptInput.focus();
+  }
+}
+
 // Handle image generation
 async function handleStartGeneration() {
   const prompt = promptInput.value.trim();
@@ -140,10 +215,26 @@ async function handleStartGeneration() {
 // Event listeners
 promptInput.addEventListener('input', validatePrompt);
 
-filterBtn.addEventListener('click', openFilterModal);
-closeModal.addEventListener('click', closeFilterModal);
-modalBackdrop.addEventListener('click', closeFilterModal);
-applyFilters.addEventListener('click', applySelectedFilters);
+// Only add filter-related listeners if the elements exist
+if (filterBtn) filterBtn.addEventListener('click', openFilterModal);
+if (closeModal) closeModal.addEventListener('click', closeFilterModal);
+if (modalBackdrop) modalBackdrop.addEventListener('click', closeFilterModal);
+if (applyFilters) applyFilters.addEventListener('click', applySelectedFilters);
+
+// Trending Carousel functionality
+if (trendingScrollLeftBtn) {
+  trendingScrollLeftBtn.addEventListener('click', scrollTrendingCarouselLeft);
+}
+
+if (trendingScrollRightBtn) {
+  trendingScrollRightBtn.addEventListener('click', scrollTrendingCarouselRight);
+}
+
+
+// Try This buttons
+document.querySelectorAll('.try-this-btn').forEach(button => {
+  button.addEventListener('click', handleTryThisClick);
+});
 
 // Handle filter checkbox changes
 document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {

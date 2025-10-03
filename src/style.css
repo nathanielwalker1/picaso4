@@ -54,63 +54,50 @@ body {
 
 /* Hero Section */
 .hero {
-  padding: 60px 0;
+  padding: 40px 0 20px 0;
   text-align: center;
 }
 
 .hero-title {
-  font-size: 42px;
+  font-size: 48px;
   font-weight: bold;
   color: #111827;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
-  font-size: 16px;
+  font-size: 14px;
   color: #6B7280;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
+  line-height: 1.5;
 }
+
 
 /* Prompt Input */
 .prompt-section {
-  margin-bottom: 36px;
+  margin-bottom: 20px;
 }
 
 .prompt-input-container {
   display: flex;
   align-items: center;
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   background: white;
   border: 2px solid #E5E7EB;
-  border-radius: 12px;
-  padding: 4px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.filter-icon {
-  background: none;
-  border: none;
-  padding: 12px;
-  cursor: pointer;
-  color: #6B7280;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
-
-.filter-icon:hover {
-  background-color: #F3F4F6;
+  border-radius: 10px;
+  padding: 3px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
 }
 
 .prompt-input {
   flex: 1;
   border: none;
-  padding: 14px 12px;
+  padding: 12px 16px;
   font-family: 'Kosugi', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   background: transparent;
   outline: none;
   color: #111827;
@@ -126,11 +113,12 @@ body {
   border: none;
   padding: 12px 20px;
   font-family: 'Kosugi', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: 7px;
   cursor: pointer;
   transition: background-color 0.2s;
+  white-space: nowrap;
 }
 
 .start-btn:hover:not(:disabled) {
@@ -140,6 +128,197 @@ body {
 .start-btn:disabled {
   background-color: #D1D5DB;
   cursor: not-allowed;
+}
+
+/* Trending Section */
+.trending-section {
+  padding: 30px 0 40px 0;
+  text-align: center;
+}
+
+.trending-title {
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  color: #111827;
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+
+.trending-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 0 0 16px 24px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: calc(3.5 * 220px + 3.5 * 24px);
+  margin: 0 auto;
+}
+
+.trending-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.trending-item {
+  flex: 0 0 220px;
+  text-align: center;
+}
+
+.trending-image {
+  margin-bottom: 12px;
+}
+
+.trending-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.trending-style-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: 0.05em;
+  margin: 0 0 8px 0;
+}
+
+.try-this-btn {
+  background-color: transparent;
+  color: #6B7280;
+  border: 1px solid #E5E7EB;
+  padding: 6px 12px;
+  font-family: 'Kosugi', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.try-this-btn:hover {
+  background-color: #F3F4F6;
+  border-color: #D1D5DB;
+}
+
+/* As Seen On Section */
+.as-seen-on {
+  padding: 20px 0 30px 0;
+  text-align: center;
+}
+
+.as-seen-title {
+  font-size: 12px;
+  color: #6B7280;
+  margin-bottom: 16px;
+}
+
+.social-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.social-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #111827;
+}
+
+.social-logo svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-logo span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.social-logo.tiktok {
+  color: #000000;
+}
+
+.social-logo.pinterest {
+  color: #E60023;
+}
+
+/* Customer Photos Section */
+.customer-photos {
+  padding: 40px 0;
+  background-color: #F9FAFB;
+}
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.photo-item {
+  text-align: center;
+}
+
+.room-photo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.photo-quote {
+  font-size: 11px;
+  color: #6B7280;
+  line-height: 1.4;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Carousel container and scroll button for Try This section */
+.carousel-container {
+  position: relative;
+  max-width: calc(3.5 * 220px + 3.5 * 24px + 120px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.carousel-scroll-btn {
+  position: static;
+  background: white;
+  border: 2px solid #E5E7EB;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6B7280;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.carousel-scroll-btn:hover {
+  background-color: #8B5CF6;
+  color: white;
+  border-color: #8B5CF6;
+}
+
+.carousel-scroll-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 /* How It Works Section */
@@ -1064,11 +1243,60 @@ body {
   }
   
   .hero-title {
-    font-size: 36px;
+    font-size: 32px;
+    line-height: 1.1;
   }
   
   .hero-subtitle {
-    font-size: 16px;
+    font-size: 13px;
+  }
+  
+  .trending-item {
+    flex: 0 0 160px;
+  }
+  
+  .trending-image img {
+    height: 160px;
+  }
+  
+  .trending-carousel {
+    max-width: calc(3.5 * 160px + 3.5 * 16px);
+    gap: 16px;
+  }
+  
+  .carousel-container {
+    max-width: calc(3.5 * 160px + 3.5 * 16px + 100px);
+    gap: 8px;
+  }
+  
+  .social-logos {
+    gap: 24px;
+  }
+  
+  .carousel-scroll-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .photos-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 280px;
+  }
+  
+  .room-photo {
+    height: 140px;
+  }
+  
+  .prompt-input-container {
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+  }
+  
+  .start-btn {
+    width: 100%;
+    padding: 16px 24px;
   }
   
   .section-title {
