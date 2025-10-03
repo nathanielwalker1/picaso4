@@ -25,10 +25,41 @@ let selectedFilters = {
   realism: []
 };
 
+// Auto-resize textarea and manage container expansion
+function autoResizeTextarea() {
+  const container = document.getElementById('promptContainer');
+  const textarea = promptInput;
+  
+  if (textarea && container) {
+    // Reset height to get accurate scrollHeight
+    textarea.style.height = 'auto';
+    
+    // Calculate the new height
+    const scrollHeight = textarea.scrollHeight;
+    const lineHeight = 20; // Approximate line height
+    const padding = 24; // Top and bottom padding
+    const minHeight = lineHeight + padding;
+    const maxHeight = 120 + padding;
+    
+    // Set the new height
+    const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
+    textarea.style.height = newHeight + 'px';
+    
+    // Add/remove expanded class based on content
+    const hasContent = textarea.value.trim().length > 50 || scrollHeight > minHeight + 10;
+    if (hasContent) {
+      container.classList.add('expanded');
+    } else {
+      container.classList.remove('expanded');
+    }
+  }
+}
+
 // Prompt validation - enable Start button when 3+ words
 function validatePrompt() {
   const words = promptInput.value.trim().split(/\s+/).filter(word => word.length > 0);
   startBtn.disabled = words.length < 3;
+  autoResizeTextarea();
 }
 
 // Filter modal functionality
@@ -150,21 +181,28 @@ function handleTryThisClick(event) {
   const button = event.target;
   const style = button.getAttribute('data-style');
   
-  // You can customize these prompts based on the style
+  // More detailed prompts that will trigger expansion
   const stylePrompts = {
-    'french': 'A romantic scene in French Academic style with dramatic lighting',
-    'dutch': 'A maritime scene in Dutch Renaissance style with rich colors',
-    'japan': 'A minimalist scene in Edo Japanese style with natural elements',
-    'edo': 'A beautiful still life with flowers in artistic style'
+    'french': 'A romantic French Academic painting featuring elegant figures in classical poses, with dramatic chiaroscuro lighting, rich warm tones, and detailed fabric textures in the style of 19th century salon artists',
+    'dutch': 'A Dutch Renaissance maritime scene with tall sailing ships navigating turbulent seas under dramatic cloudy skies, featuring rich earth tones and masterful attention to atmospheric perspective and water reflections',
+    'japan': 'An Edo period Japanese artwork depicting serene natural elements like cherry blossoms, cranes, or mountain landscapes, rendered in minimalist style with delicate brushwork, subtle colors, and harmonious composition',
+    'edo': 'A contemporary boho abstract artwork featuring flowing organic forms, earthy textures, and warm botanical elements with modern minimalist aesthetics and soft, muted color palette'
   };
   
   if (stylePrompts[style] && promptInput) {
     promptInput.value = stylePrompts[style];
     validatePrompt();
     
-    // Scroll to input
-    promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    promptInput.focus();
+    // Trigger expansion and focus
+    setTimeout(() => {
+      autoResizeTextarea();
+      promptInput.focus();
+      
+      // Scroll to input with some delay for smooth animation
+      setTimeout(() => {
+        promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }, 50);
   }
 }
 
@@ -200,8 +238,19 @@ async function handleStartGeneration() {
     // Show remaining attempts if any (while loading screen is still visible)
     showRemainingAttempts(newStatus.remaining);
     
-    // Redirect immediately to eliminate any flash
-    window.location.href = '/review.html';
+    // Store artwork data for review page
+    sessionStorage.setItem('currentArtwork', JSON.stringify({
+      imageUrl: artwork.imageUrl,
+      prompt: prompt,
+      selectedFilters: selectedFilters,
+      timestamp: Date.now()
+    }));
+    
+    // Small delay to show completion before redirect
+    setTimeout(() => {
+      hideLoading();
+      window.location.href = '/review.html';
+    }, 1000);
     
   } catch (error) {
     console.error('Error generating artwork:', error);
@@ -214,6 +263,8 @@ async function handleStartGeneration() {
 
 // Event listeners
 promptInput.addEventListener('input', validatePrompt);
+promptInput.addEventListener('focus', autoResizeTextarea);
+promptInput.addEventListener('blur', autoResizeTextarea);
 
 // Only add filter-related listeners if the elements exist
 if (filterBtn) filterBtn.addEventListener('click', openFilterModal);

@@ -82,7 +82,7 @@ body {
 
 .prompt-input-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   max-width: 500px;
   margin: 0 auto;
   background: white;
@@ -90,6 +90,12 @@ body {
   border-radius: 10px;
   padding: 3px;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.prompt-input-container.expanded {
+  max-width: 700px;
+  align-items: flex-start;
 }
 
 .prompt-input {
@@ -101,6 +107,11 @@ body {
   background: transparent;
   outline: none;
   color: #111827;
+  resize: none;
+  min-height: 20px;
+  max-height: 120px;
+  overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 .prompt-input::placeholder {
@@ -119,6 +130,8 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 8px;
 }
 
 .start-btn:hover:not(:disabled) {
@@ -1292,11 +1305,18 @@ body {
     flex-direction: column;
     gap: 8px;
     padding: 16px;
+    max-width: 90%;
+  }
+  
+  .prompt-input-container.expanded {
+    max-width: 95%;
   }
   
   .start-btn {
     width: 100%;
     padding: 16px 24px;
+    margin-top: 0;
+    align-self: stretch;
   }
   
   .section-title {

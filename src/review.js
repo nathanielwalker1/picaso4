@@ -26,9 +26,8 @@ let currentFilters = {};
 // Initialize page with generated artwork data
 function initializePage() {
   try {
-    // Get artwork data from localStorage
-    const artworkData = localStorage.getItem('generatedArtwork');
-    const filtersData = localStorage.getItem('selectedFilters');
+    // Get artwork data from sessionStorage
+    const artworkData = sessionStorage.getItem('currentArtwork');
     
     if (!artworkData) {
       // No artwork data, redirect to home
@@ -36,8 +35,12 @@ function initializePage() {
       return;
     }
     
-    currentArtwork = JSON.parse(artworkData);
-    currentFilters = filtersData ? JSON.parse(filtersData) : {
+    const data = JSON.parse(artworkData);
+    currentArtwork = {
+      imageUrl: data.imageUrl,
+      prompt: data.prompt
+    };
+    currentFilters = data.selectedFilters || {
       medium: [],
       style: [],
       tone: [],
@@ -100,8 +103,10 @@ function handleFilterChange(event) {
 }
 
 function applySelectedFilters() {
-  // Update localStorage with new filters
-  localStorage.setItem('selectedFilters', JSON.stringify(currentFilters));
+  // Update sessionStorage with new filters
+  const artworkData = JSON.parse(sessionStorage.getItem('currentArtwork'));
+  artworkData.selectedFilters = currentFilters;
+  sessionStorage.setItem('currentArtwork', JSON.stringify(artworkData));
   
   // Update filter button visual state
   updateFilterButtonState();
@@ -196,8 +201,11 @@ async function confirmRetry() {
     // Update current artwork
     currentArtwork = newArtwork;
     
-    // Update localStorage
-    localStorage.setItem('generatedArtwork', JSON.stringify(newArtwork));
+    // Update sessionStorage
+    const artworkData = JSON.parse(sessionStorage.getItem('currentArtwork'));
+    artworkData.imageUrl = newArtwork.imageUrl;
+    artworkData.prompt = newPrompt;
+    sessionStorage.setItem('currentArtwork', JSON.stringify(artworkData));
     
     // Update UI
     generatedImage.src = newArtwork.imageUrl;
@@ -279,8 +287,7 @@ async function handleContinue() {
 // Handle back button
 function handleBack() {
   // Clear current generation data
-  localStorage.removeItem('generatedArtwork');
-  localStorage.removeItem('selectedFilters');
+  sessionStorage.removeItem('currentArtwork');
   
   // Navigate back to home
   window.location.href = '/';
