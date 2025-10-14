@@ -34,23 +34,33 @@ function autoResizeTextarea() {
     // Reset height to get accurate scrollHeight
     textarea.style.height = 'auto';
     
-    // Calculate the new height
+    // Calculate the new height with mobile-friendly values
     const scrollHeight = textarea.scrollHeight;
-    const lineHeight = 20; // Approximate line height
-    const padding = 24; // Top and bottom padding
-    const minHeight = lineHeight + padding;
-    const maxHeight = 120 + padding;
+    const isMobile = window.innerWidth <= 768;
+    const lineHeight = isMobile ? 22 : 20; // Slightly larger line height on mobile
+    const padding = isMobile ? 28 : 24; // More padding on mobile
+    const minHeight = (isMobile ? 44 : lineHeight) + padding; // Larger min height on mobile
+    const maxHeight = (isMobile ? 140 : 120) + padding; // More max height on mobile
     
     // Set the new height
     const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
     textarea.style.height = newHeight + 'px';
     
-    // Add/remove expanded class based on content
-    const hasContent = textarea.value.trim().length > 50 || scrollHeight > minHeight + 10;
+    // Add/remove expanded class based on content - more sensitive on mobile
+    const contentThreshold = isMobile ? 30 : 50;
+    const heightThreshold = minHeight + (isMobile ? 5 : 10);
+    const hasContent = textarea.value.trim().length > contentThreshold || scrollHeight > heightThreshold;
+    
     if (hasContent) {
       container.classList.add('expanded');
     } else {
       container.classList.remove('expanded');
+    }
+    
+    // Ensure proper word wrap on mobile
+    if (isMobile) {
+      textarea.style.wordWrap = 'break-word';
+      textarea.style.overflowWrap = 'break-word';
     }
   }
 }
@@ -190,19 +200,35 @@ function handleTryThisClick(event) {
   };
   
   if (stylePrompts[style] && promptInput) {
+    // Clear and set the new value
+    promptInput.value = '';
     promptInput.value = stylePrompts[style];
-    validatePrompt();
     
-    // Trigger expansion and focus
+    // Force validation and auto-resize with multiple triggers
+    validatePrompt();
+    autoResizeTextarea();
+    
+    // Additional triggers to ensure proper mobile formatting
     setTimeout(() => {
       autoResizeTextarea();
+      validatePrompt();
+      
+      // Focus and scroll to input
       promptInput.focus();
+      
+      // Force a style recalculation for mobile
+      const container = document.getElementById('promptContainer');
+      if (container) {
+        container.style.display = 'none';
+        container.offsetHeight; // Force reflow
+        container.style.display = '';
+      }
       
       // Scroll to input with some delay for smooth animation
       setTimeout(() => {
         promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
-    }, 50);
+      }, 150);
+    }, 100);
   }
 }
 
@@ -308,6 +334,22 @@ document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape' && filterModal.classList.contains('show')) {
     closeFilterModal();
   }
+});
+
+// Handle window resize and orientation changes for mobile responsiveness
+window.addEventListener('resize', function() {
+  // Debounce resize events
+  clearTimeout(window.resizeTimeout);
+  window.resizeTimeout = setTimeout(function() {
+    autoResizeTextarea();
+  }, 100);
+});
+
+// Handle orientation change specifically for mobile devices
+window.addEventListener('orientationchange', function() {
+  setTimeout(function() {
+    autoResizeTextarea();
+  }, 200);
 });
 
 // Initialize
