@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Kosugi', sans-serif;
-  background-color: #F9FAFB;
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
   color: #111827;
   line-height: 1.6;
 }
@@ -264,7 +264,6 @@ body {
 /* Customer Photos Section */
 .customer-photos {
   padding: 40px 0;
-  background-color: #F9FAFB;
 }
 
 .photos-grid {
@@ -281,7 +280,7 @@ body {
 
 .room-photo {
   width: 100%;
-  height: 160px;
+  aspect-ratio: 3/4;
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 12px;
@@ -1298,7 +1297,7 @@ body {
   }
   
   .room-photo {
-    height: 140px;
+    aspect-ratio: 3/4;
   }
   
   .prompt-input-container {
