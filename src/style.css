@@ -134,13 +134,20 @@ body {
   margin-top: 8px;
 }
 
-.start-btn:hover:not(:disabled) {
+.start-btn:hover {
   background-color: #7C3AED;
 }
 
-.start-btn:disabled {
-  background-color: #D1D5DB;
-  cursor: not-allowed;
+.start-btn:active {
+  background-color: #6D28D9;
+}
+
+.prompt-error {
+  color: #EF4444;
+  font-size: 14px;
+  margin-top: 8px;
+  font-family: 'Kosugi', sans-serif;
+  display: none;
 }
 
 /* Trending Section */
@@ -213,8 +220,14 @@ body {
 }
 
 .try-this-btn:hover {
-  background-color: #F3F4F6;
-  border-color: #D1D5DB;
+  background-color: #8B5CF6;
+  color: white;
+  border-color: #8B5CF6;
+}
+
+.try-this-btn:active {
+  background-color: #7C3AED;
+  border-color: #7C3AED;
 }
 
 /* As Seen On Section */
@@ -340,11 +353,11 @@ body {
 }
 
 .section-title {
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 400;
   text-align: center;
   color: #111827;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .steps {
@@ -356,25 +369,8 @@ body {
 }
 
 .step {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  text-align: left;
-  min-height: 120px;
-  padding: 20px 0;
-}
-
-.step-icon {
-  width: 80px;
-  height: 80px;
-  background-color: #F3F4F6;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6B7280;
-  flex-shrink: 0;
-  padding: 16px;
+  text-align: center;
+  padding: 20px;
 }
 
 .step-content {
@@ -383,8 +379,13 @@ body {
 
 .step-content h3 {
   font-size: 18px;
-  font-weight: 500;
-  color: #111827;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.step-content p {
+  font-size: 16px;
+  color: #6B7280;
   line-height: 1.5;
   margin: 0;
 }

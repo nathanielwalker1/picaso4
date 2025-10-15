@@ -205,12 +205,22 @@ async function handleRetry() {
     // Hide loading screen
     hideLoading();
     
+    // Ensure Continue button is reset to normal state
+    continueBtn.disabled = false;
+    continueBtn.textContent = 'Continue';
+    continueBtn.style.cursor = 'pointer';
+    
     // Show remaining attempts notification
     showRemainingAttempts(newStatus.remaining);
     
   } catch (error) {
     console.error('Error regenerating artwork:', error);
     hideLoading();
+    
+    // Ensure Continue button is reset to normal state even on error
+    continueBtn.disabled = false;
+    continueBtn.textContent = 'Continue';
+    continueBtn.style.cursor = 'pointer';
     
     // Show user-friendly error message
     alert(error.message || 'Failed to generate new artwork. Please try again.');

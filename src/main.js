@@ -5,6 +5,7 @@ import { getRateLimitStatus, recordGeneration, showRateLimitModal, showRemaining
 // DOM Elements
 const promptInput = document.getElementById('promptInput');
 const startBtn = document.getElementById('startBtn');
+const promptError = document.getElementById('promptError');
 const filterBtn = document.getElementById('filterBtn');
 const filterModal = document.getElementById('filterModal');
 const modalBackdrop = document.getElementById('modalBackdrop');
@@ -65,10 +66,15 @@ function autoResizeTextarea() {
   }
 }
 
-// Prompt validation - enable Start button when 3+ words
+// Prompt validation - hide error message when enough words
 function validatePrompt() {
   const words = promptInput.value.trim().split(/\s+/).filter(word => word.length > 0);
-  startBtn.disabled = words.length < 3;
+  
+  // Hide error message if user has enough words
+  if (words.length >= 3) {
+    promptError.style.display = 'none';
+  }
+  
   autoResizeTextarea();
 }
 
@@ -239,7 +245,8 @@ async function handleStartGeneration() {
   // Validate prompt
   const words = prompt.split(/\s+/).filter(word => word.length > 0);
   if (words.length < 3) {
-    alert('Please enter at least 3 words for your prompt.');
+    promptError.style.display = 'block';
+    promptInput.focus();
     return;
   }
   
@@ -323,7 +330,7 @@ startBtn.addEventListener('click', handleStartGeneration);
 
 // Handle Enter key in prompt input
 promptInput.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter' && !startBtn.disabled) {
+  if (event.key === 'Enter') {
     event.preventDefault();
     handleStartGeneration();
   }
