@@ -37,8 +37,8 @@ export default async function handler(req, res) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'Custom AI Art Print (12x12)',
-              description: 'High-quality AI-generated artwork printed on premium matte canvas with Ayous wood frame',
+              name: 'Custom PICASO Print (12x12)',
+              description: 'Gallery-quality artwork printed on premium matte canvas with Ayous wood frame',
               images: [imageUrl], // Show the generated artwork in checkout
             },
             unit_amount: 9900, // $99.00 in cents
