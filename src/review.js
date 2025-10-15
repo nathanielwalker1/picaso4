@@ -52,6 +52,9 @@ function initializePage() {
     generatedImage.alt = `Generated artwork: ${currentArtwork.prompt}`;
     reviewPrompt.value = currentArtwork.prompt;
     
+    // Make prompt editable so users can modify before retrying
+    reviewPrompt.readOnly = false;
+    
     // Initialize filter checkboxes with current selections
     initializeFilterCheckboxes();
     updateFilterButtonState();
@@ -152,7 +155,7 @@ function updateProgress(percentage, text) {
   }
 }
 
-// Handle retry generation
+// Handle retry generation - simplified to directly regenerate
 async function handleRetry() {
   try {
     // Check rate limit first
@@ -163,90 +166,54 @@ async function handleRetry() {
       return;
     }
     
-    // Enable editing of prompt
-    reviewPrompt.readOnly = false;
-    reviewPrompt.focus();
-    reviewPrompt.style.background = 'white';
-    reviewPrompt.style.border = '2px solid #8B5CF6';
+    // Get current prompt (user can edit it before clicking retry)
+    const currentPrompt = reviewPrompt.value.trim();
     
-    // Change retry button to confirm
-    retryBtn.textContent = 'Generate New';
-    retryBtn.onclick = confirmRetry;
+    // Validate prompt
+    const words = currentPrompt.split(/\s+/).filter(word => word.length > 0);
+    if (words.length < 3) {
+      alert('Please enter at least 3 words for your prompt.');
+      return;
+    }
     
-  } catch (error) {
-    console.error('Error handling retry:', error);
-  }
-}
-
-// Confirm retry with new prompt
-async function confirmRetry() {
-  const newPrompt = reviewPrompt.value.trim();
-  
-  // Validate prompt
-  const words = newPrompt.split(/\s+/).filter(word => word.length > 0);
-  if (words.length < 3) {
-    alert('Please enter at least 3 words for your prompt.');
-    return;
-  }
-  
-  try {
+    // Show loading screen
     showLoading();
     
-    // Generate new artwork
-    const newArtwork = await createArtwork(newPrompt, currentFilters, updateProgress);
+    // Generate new artwork with current prompt and filters
+    const newArtwork = await createArtwork(currentPrompt, currentFilters, updateProgress);
     
-    // Record the generation
-    const newStatus = recordGeneration(newArtwork.imageUrl, newPrompt);
+    // Record the generation for rate limiting
+    const newStatus = recordGeneration(newArtwork.imageUrl, currentPrompt);
     
     // Update current artwork
-    currentArtwork = newArtwork;
+    currentArtwork = {
+      imageUrl: newArtwork.imageUrl,
+      prompt: currentPrompt
+    };
     
     // Update sessionStorage
     const artworkData = JSON.parse(sessionStorage.getItem('currentArtwork'));
     artworkData.imageUrl = newArtwork.imageUrl;
-    artworkData.prompt = newPrompt;
+    artworkData.prompt = currentPrompt;
+    artworkData.selectedFilters = currentFilters;
     sessionStorage.setItem('currentArtwork', JSON.stringify(artworkData));
     
-    // Update UI
+    // Update the displayed image
     generatedImage.src = newArtwork.imageUrl;
-    generatedImage.alt = `Generated artwork: ${newPrompt}`;
+    generatedImage.alt = `Generated artwork: ${currentPrompt}`;
     
-    // Reset prompt field
-    reviewPrompt.readOnly = true;
-    reviewPrompt.style.background = '#F9FAFB';
-    reviewPrompt.style.border = '2px solid #E5E7EB';
-    
-    // Reset retry button
-    retryBtn.textContent = 'Retry';
-    retryBtn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-        <path d="M21 3v5h-5"/>
-        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-        <path d="M3 21v-5h5"/>
-      </svg>
-      Retry
-    `;
-    retryBtn.onclick = handleRetry;
-    
+    // Hide loading screen
     hideLoading();
     
-    // Show remaining attempts
+    // Show remaining attempts notification
     showRemainingAttempts(newStatus.remaining);
     
   } catch (error) {
     console.error('Error regenerating artwork:', error);
     hideLoading();
     
-    // Show error message
+    // Show user-friendly error message
     alert(error.message || 'Failed to generate new artwork. Please try again.');
-    
-    // Reset UI
-    reviewPrompt.readOnly = true;
-    reviewPrompt.style.background = '#F9FAFB';
-    reviewPrompt.style.border = '2px solid #E5E7EB';
-    retryBtn.textContent = 'Retry';
-    retryBtn.onclick = handleRetry;
   }
 }
 
