@@ -1,6 +1,6 @@
 const STORAGE_KEY_GENERATIONS = 'picaso_generations';
 const STORAGE_KEY_RESET = 'picaso_limit_reset';
-const MAX_GENERATIONS = 3;
+const MAX_GENERATIONS = 50;
 const RESET_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 /**
