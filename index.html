@@ -43,7 +43,13 @@
               maxlength="500"
               rows="1"
             ></textarea>
-            <button class="start-btn" id="startBtn">Create</button>
+            <button class="start-btn" id="startBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m15.5-6.5l-4.2 4.2M7.7 16.8l-4.2 4.2M16.8 16.8l4.2 4.2M7.7 7.2L3.5.7"></path>
+              </svg>
+              Generate
+            </button>
           </div>
           <div class="prompt-error" id="promptError">PICASO needs more to work with. Try something with more than three words.</div>
         </div>
@@ -63,35 +69,75 @@
           </button>
           <div class="trending-carousel" id="trendingCarousel">
             <div class="trending-item">
-              <div class="trending-image">
-                <img src="/src/assets/french.png" alt="French Academic Realism">
+              <div class="trending-card" data-style="french">
+                <div class="trending-card-image">
+                  <img src="/src/assets/french.png" alt="French Academic Realism">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">French Academic Realism</h3>
+                  <button class="generate-btn" data-style="french">
+                    Generate
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <h3 class="trending-style-title">FRENCH ACADEMIC REALISM</h3>
-              <button class="try-this-btn" data-style="french">Try this</button>
             </div>
             
             <div class="trending-item">
-              <div class="trending-image">
-                <img src="/src/assets/dutch.png" alt="Dutch Renaissance">
+              <div class="trending-card" data-style="dutch">
+                <div class="trending-card-image">
+                  <img src="/src/assets/dutch.png" alt="Dutch Renaissance">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">Dutch Renaissance</h3>
+                  <button class="generate-btn" data-style="dutch">
+                    Generate
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <h3 class="trending-style-title">DUTCH RENAISSANCE</h3>
-              <button class="try-this-btn" data-style="dutch">Try this</button>
             </div>
             
             <div class="trending-item">
-              <div class="trending-image">
-                <img src="/src/assets/japan.png" alt="Edo Japan Core">
+              <div class="trending-card" data-style="japan">
+                <div class="trending-card-image">
+                  <img src="/src/assets/japan.png" alt="Edo Japan Core">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">Edo Japan Core</h3>
+                  <button class="generate-btn" data-style="japan">
+                    Generate
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <h3 class="trending-style-title">EDO JAPAN CORE</h3>
-              <button class="try-this-btn" data-style="japan">Try this</button>
             </div>
             
             <div class="trending-item">
-              <div class="trending-image">
-                <img src="/src/assets/flower.png" alt="Edo Style Variation">
+              <div class="trending-card" data-style="edo">
+                <div class="trending-card-image">
+                  <img src="/src/assets/flower.png" alt="Edo Style Variation">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">Boho Abstract</h3>
+                  <button class="generate-btn" data-style="edo">
+                    Generate
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <h3 class="trending-style-title">BOHO ABSTRACT</h3>
-              <button class="try-this-btn" data-style="edo">Try this</button>
             </div>
           </div>
           <button class="carousel-scroll-btn carousel-scroll-right" id="trendingScrollRightBtn" aria-label="Scroll right">

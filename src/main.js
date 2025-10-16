@@ -176,10 +176,10 @@ function scrollTrendingCarouselLeft() {
   }
 }
 
-// Try This button functionality
+// Try This button/card functionality
 function handleTryThisClick(event) {
-  const button = event.target;
-  const style = button.getAttribute('data-style');
+  const element = event.currentTarget;
+  const style = element.getAttribute('data-style');
   
   // More detailed prompts that will trigger expansion
   const stylePrompts = {
@@ -289,8 +289,8 @@ if (trendingScrollRightBtn) {
 }
 
 
-// Try This buttons
-document.querySelectorAll('.try-this-btn').forEach(button => {
+// Generate buttons only
+document.querySelectorAll('.generate-btn').forEach(button => {
   button.addEventListener('click', handleTryThisClick);
 });
 
