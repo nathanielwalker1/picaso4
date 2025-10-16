@@ -21,7 +21,6 @@ const loadingPercentage = document.getElementById('loadingPercentage');
 
 // State
 let currentArtwork = null;
-let currentFilters = {};
 
 // Initialize page with generated artwork data
 function initializePage() {
@@ -40,12 +39,6 @@ function initializePage() {
       imageUrl: data.imageUrl,
       prompt: data.prompt
     };
-    currentFilters = data.selectedFilters || {
-      medium: [],
-      style: [],
-      tone: [],
-      realism: []
-    };
     
     // Display the artwork
     generatedImage.src = currentArtwork.imageUrl;
@@ -54,10 +47,6 @@ function initializePage() {
     
     // Make prompt editable so users can modify before retrying
     reviewPrompt.readOnly = false;
-    
-    // Initialize filter checkboxes with current selections
-    initializeFilterCheckboxes();
-    updateFilterButtonState();
     
   } catch (error) {
     console.error('Error initializing review page:', error);
@@ -76,58 +65,7 @@ function closeFilterModal() {
   document.body.style.overflow = 'auto';
 }
 
-// Initialize filter checkboxes with current selections
-function initializeFilterCheckboxes() {
-  document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {
-    const category = checkbox.closest('.filter-category').querySelector('h4').textContent.toLowerCase();
-    const value = checkbox.value;
-    
-    if (currentFilters[category] && currentFilters[category].includes(value)) {
-      checkbox.checked = true;
-    }
-    
-    // Add event listener
-    checkbox.addEventListener('change', handleFilterChange);
-  });
-}
 
-function handleFilterChange(event) {
-  const checkbox = event.target;
-  const category = checkbox.closest('.filter-category').querySelector('h4').textContent.toLowerCase();
-  const value = checkbox.value;
-  
-  if (checkbox.checked) {
-    if (!currentFilters[category].includes(value)) {
-      currentFilters[category].push(value);
-    }
-  } else {
-    currentFilters[category] = currentFilters[category].filter(item => item !== value);
-  }
-}
-
-function applySelectedFilters() {
-  // Update sessionStorage with new filters
-  const artworkData = JSON.parse(sessionStorage.getItem('currentArtwork'));
-  artworkData.selectedFilters = currentFilters;
-  sessionStorage.setItem('currentArtwork', JSON.stringify(artworkData));
-  
-  // Update filter button visual state
-  updateFilterButtonState();
-  
-  closeFilterModal();
-}
-
-function updateFilterButtonState() {
-  const hasFilters = Object.values(currentFilters).some(arr => arr.length > 0);
-  
-  if (hasFilters) {
-    filterBtn.style.backgroundColor = '#8B5CF6';
-    filterBtn.style.color = 'white';
-  } else {
-    filterBtn.style.backgroundColor = '';
-    filterBtn.style.color = '';
-  }
-}
 
 // Show loading screen
 function showLoading() {
@@ -179,8 +117,8 @@ async function handleRetry() {
     // Show loading screen
     showLoading();
     
-    // Generate new artwork with current prompt and filters
-    const newArtwork = await createArtwork(currentPrompt, currentFilters, updateProgress);
+    // Generate new artwork with current prompt
+    const newArtwork = await createArtwork(currentPrompt, updateProgress);
     
     // Record the generation for rate limiting
     const newStatus = recordGeneration(newArtwork.imageUrl, currentPrompt);
@@ -195,7 +133,6 @@ async function handleRetry() {
     const artworkData = JSON.parse(sessionStorage.getItem('currentArtwork'));
     artworkData.imageUrl = newArtwork.imageUrl;
     artworkData.prompt = currentPrompt;
-    artworkData.selectedFilters = currentFilters;
     sessionStorage.setItem('currentArtwork', JSON.stringify(artworkData));
     
     // Update the displayed image
@@ -279,7 +216,7 @@ backBtn.addEventListener('click', handleBack);
 filterBtn.addEventListener('click', openFilterModal);
 closeModal.addEventListener('click', closeFilterModal);
 modalBackdrop.addEventListener('click', closeFilterModal);
-applyFilters.addEventListener('click', applySelectedFilters);
+applyFilters.addEventListener('click', closeFilterModal);
 
 // Close modal with Escape key
 document.addEventListener('keydown', function(event) {

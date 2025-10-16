@@ -254,9 +254,13 @@ if (trendingScrollRightBtn) {
 }
 
 
-// Generate buttons only
+// Generate buttons and cards
 document.querySelectorAll('.generate-btn').forEach(button => {
   button.addEventListener('click', handleTryThisClick);
+});
+
+document.querySelectorAll('.trending-card').forEach(card => {
+  card.addEventListener('click', handleTryThisClick);
 });
 
 
