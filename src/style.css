@@ -1472,7 +1472,11 @@ body {
   }
   
   .controls-section {
-    order: -1;
+    order: 1;
+  }
+  
+  .image-section {
+    order: 0;
   }
   
   .continue-btn {
