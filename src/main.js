@@ -19,12 +19,6 @@ const trendingScrollLeftBtn = document.getElementById('trendingScrollLeftBtn');
 const trendingScrollRightBtn = document.getElementById('trendingScrollRightBtn');
 
 // State
-let selectedFilters = {
-  medium: [],
-  style: [],
-  tone: [],
-  realism: []
-};
 
 // Auto-resize textarea
 function autoResizeTextarea() {
@@ -73,34 +67,6 @@ function closeFilterModal() {
   document.body.style.overflow = 'auto';
 }
 
-function handleFilterChange(event) {
-  const checkbox = event.target;
-  const category = checkbox.closest('.filter-category').querySelector('h4').textContent.toLowerCase();
-  const value = checkbox.value;
-  
-  if (checkbox.checked) {
-    if (!selectedFilters[category].includes(value)) {
-      selectedFilters[category].push(value);
-    }
-  } else {
-    selectedFilters[category] = selectedFilters[category].filter(item => item !== value);
-  }
-}
-
-function applySelectedFilters() {
-  // Update filter button visual state if any filters are selected
-  const hasFilters = Object.values(selectedFilters).some(arr => arr.length > 0);
-  
-  if (hasFilters) {
-    filterBtn.style.backgroundColor = '#8B5CF6';
-    filterBtn.style.color = 'white';
-  } else {
-    filterBtn.style.backgroundColor = '';
-    filterBtn.style.color = '';
-  }
-  
-  closeFilterModal();
-}
 
 // Loading screen functions
 function showLoading() {
@@ -239,7 +205,7 @@ async function handleStartGeneration() {
     showLoading();
     
     // Generate artwork
-    const artwork = await createArtwork(prompt, selectedFilters, updateProgress);
+    const artwork = await createArtwork(prompt, updateProgress);
     
     // Record the generation for rate limiting
     const newStatus = recordGeneration(artwork.imageUrl, prompt);
@@ -251,7 +217,6 @@ async function handleStartGeneration() {
     sessionStorage.setItem('currentArtwork', JSON.stringify({
       imageUrl: artwork.imageUrl,
       prompt: prompt,
-      selectedFilters: selectedFilters,
       timestamp: Date.now()
     }));
     
@@ -277,7 +242,7 @@ promptInput.addEventListener('input', validatePrompt);
 if (filterBtn) filterBtn.addEventListener('click', openFilterModal);
 if (closeModal) closeModal.addEventListener('click', closeFilterModal);
 if (modalBackdrop) modalBackdrop.addEventListener('click', closeFilterModal);
-if (applyFilters) applyFilters.addEventListener('click', applySelectedFilters);
+if (applyFilters) applyFilters.addEventListener('click', closeFilterModal);
 
 // Trending Carousel functionality
 if (trendingScrollLeftBtn) {
@@ -294,10 +259,6 @@ document.querySelectorAll('.generate-btn').forEach(button => {
   button.addEventListener('click', handleTryThisClick);
 });
 
-// Handle filter checkbox changes
-document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {
-  checkbox.addEventListener('change', handleFilterChange);
-});
 
 // Handle Start button click
 startBtn.addEventListener('click', handleStartGeneration);

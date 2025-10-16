@@ -2,45 +2,20 @@ import { storage } from './firebase.js';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Base prompt template for consistent high-quality results
-const BASE_PROMPT = `create an image based on the user's prompts and selected filters.`
+const BASE_PROMPT = `create an image based on the user's prompt.`
 
 /**
- * Constructs the full prompt with base template, user input, and filters
+ * Constructs the full prompt with base template and user input
  */
-function constructPrompt(userPrompt, selectedFilters) {
-  let fullPrompt = BASE_PROMPT + '\n\n' + userPrompt;
-  
-  // Add filters as natural language
-  const filterSections = [];
-  
-  if (selectedFilters.medium && selectedFilters.medium.length > 0) {
-    filterSections.push(`Medium: ${selectedFilters.medium.join(', ')}`);
-  }
-  
-  if (selectedFilters.style && selectedFilters.style.length > 0) {
-    filterSections.push(`Style: ${selectedFilters.style.join(', ')}`);
-  }
-  
-  if (selectedFilters.tone && selectedFilters.tone.length > 0) {
-    filterSections.push(`Tone: ${selectedFilters.tone.join(', ')}`);
-  }
-  
-  if (selectedFilters.realism && selectedFilters.realism.length > 0) {
-    filterSections.push(`Realism level: ${selectedFilters.realism.join(', ')}`);
-  }
-  
-  if (filterSections.length > 0) {
-    fullPrompt += '\n\n' + filterSections.join('\n');
-  }
-  
-  return fullPrompt;
+function constructPrompt(userPrompt) {
+  return BASE_PROMPT + '\n\n' + userPrompt;
 }
 
 /**
  * Calls our serverless API to generate an image with Replicate Flux Pro
  */
-async function generateImage(userPrompt, selectedFilters) {
-  const fullPrompt = constructPrompt(userPrompt, selectedFilters);
+async function generateImage(userPrompt) {
+  const fullPrompt = constructPrompt(userPrompt);
   
   try {
     const response = await fetch('/api/generate-image', {
@@ -91,11 +66,11 @@ function generateRandomId(length = 8) {
 /**
  * Main function to generate and upload image
  */
-export async function createArtwork(userPrompt, selectedFilters, onProgress) {
+export async function createArtwork(userPrompt, onProgress) {
   try {
     // Step 1: Generate image with Replicate Flux Pro
     onProgress?.(15, 'Generating your artwork...');
-    const replicateImageUrl = await generateImage(userPrompt, selectedFilters);
+    const replicateImageUrl = await generateImage(userPrompt);
     
     // Step 2: Start Firebase upload process
     onProgress?.(40, 'Processing image...');
@@ -133,7 +108,6 @@ export async function createArtwork(userPrompt, selectedFilters, onProgress) {
     const artwork = {
       imageUrl: permanentUrl,
       prompt: userPrompt,
-      filters: selectedFilters,
       timestamp: Date.now(),
       isPermanent: typeof permanentUrl === 'string' ? !permanentUrl.includes('replicate.delivery') : true
     };
@@ -141,7 +115,6 @@ export async function createArtwork(userPrompt, selectedFilters, onProgress) {
     // Store in localStorage for review page
     try {
       localStorage.setItem('generatedArtwork', JSON.stringify(artwork));
-      localStorage.setItem('selectedFilters', JSON.stringify(selectedFilters));
     } catch (storageError) {
       console.warn('Failed to save to localStorage:', storageError);
       // Continue anyway - the data is still returned
