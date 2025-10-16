@@ -26,43 +26,27 @@ let selectedFilters = {
   realism: []
 };
 
-// Auto-resize textarea and manage container expansion
+// Auto-resize textarea
 function autoResizeTextarea() {
-  const container = document.getElementById('promptContainer');
   const textarea = promptInput;
   
-  if (textarea && container) {
+  if (textarea) {
     // Reset height to get accurate scrollHeight
     textarea.style.height = 'auto';
     
-    // Calculate the new height with mobile-friendly values
+    // Calculate the new height
     const scrollHeight = textarea.scrollHeight;
     const isMobile = window.innerWidth <= 768;
-    const lineHeight = isMobile ? 22 : 20; // Slightly larger line height on mobile
-    const padding = isMobile ? 28 : 24; // More padding on mobile
-    const minHeight = (isMobile ? 44 : lineHeight) + padding; // Larger min height on mobile
-    const maxHeight = (isMobile ? 140 : 120) + padding; // More max height on mobile
+    const minHeight = isMobile ? 44 : 40; // Minimum height
+    const maxHeight = isMobile ? 140 : 120; // Maximum height
     
-    // Set the new height
+    // Set the new height, ensuring it's at least minHeight and doesn't exceed maxHeight
     const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
     textarea.style.height = newHeight + 'px';
     
-    // Add/remove expanded class based on content - more sensitive on mobile
-    const contentThreshold = isMobile ? 30 : 50;
-    const heightThreshold = minHeight + (isMobile ? 5 : 10);
-    const hasContent = textarea.value.trim().length > contentThreshold || scrollHeight > heightThreshold;
-    
-    if (hasContent) {
-      container.classList.add('expanded');
-    } else {
-      container.classList.remove('expanded');
-    }
-    
-    // Ensure proper word wrap on mobile
-    if (isMobile) {
-      textarea.style.wordWrap = 'break-word';
-      textarea.style.overflowWrap = 'break-word';
-    }
+    // Ensure proper word wrap
+    textarea.style.wordWrap = 'break-word';
+    textarea.style.overflowWrap = 'break-word';
   }
 }
 
@@ -222,14 +206,6 @@ function handleTryThisClick(event) {
       // Focus and scroll to input
       promptInput.focus();
       
-      // Force a style recalculation for mobile
-      const container = document.getElementById('promptContainer');
-      if (container) {
-        container.style.display = 'none';
-        container.offsetHeight; // Force reflow
-        container.style.display = '';
-      }
-      
       // Scroll to input with some delay for smooth animation
       setTimeout(() => {
         promptInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -296,8 +272,6 @@ async function handleStartGeneration() {
 
 // Event listeners
 promptInput.addEventListener('input', validatePrompt);
-promptInput.addEventListener('focus', autoResizeTextarea);
-promptInput.addEventListener('blur', autoResizeTextarea);
 
 // Only add filter-related listeners if the elements exist
 if (filterBtn) filterBtn.addEventListener('click', openFilterModal);

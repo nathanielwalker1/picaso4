@@ -90,13 +90,8 @@ body {
   border-radius: 10px;
   padding: 3px;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
 }
 
-.prompt-input-container.expanded {
-  max-width: 700px;
-  align-items: flex-start;
-}
 
 .prompt-input {
   flex: 1;
@@ -108,10 +103,14 @@ body {
   outline: none;
   color: #111827;
   resize: none;
-  min-height: 20px;
+  min-height: 40px;
   max-height: 120px;
   overflow-y: auto;
-  transition: all 0.3s ease;
+  line-height: 1.4;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .prompt-input::placeholder {
@@ -130,8 +129,9 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap;
-  align-self: flex-start;
-  margin-top: 8px;
+  align-self: center;
+  margin-left: 12px;
+  margin-right: 4px;
 }
 
 .start-btn:hover {
