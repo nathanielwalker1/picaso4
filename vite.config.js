@@ -12,6 +12,9 @@ export default defineConfig({
       }
     }
   },
+  define: {
+    __BUILD_TIME__: JSON.stringify(Date.now())
+  },
   server: {
     proxy: {
       '/api': {
