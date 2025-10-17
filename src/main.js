@@ -302,3 +302,4 @@ window.addEventListener('orientationchange', function() {
 validatePrompt();
 
 console.log('PICASO is ready to build! 🎨');
+// Updated for live Stripe keys Fri Oct 17 18:18:46 EDT 2025
