@@ -58,6 +58,13 @@ body {
   text-align: center;
 }
 
+.hero-header-image {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 24px;
+}
+
 .hero-title {
   font-size: 48px;
   font-weight: bold;
@@ -1317,6 +1324,11 @@ body {
 @media (max-width: 768px) {
   .container {
     padding: 0 16px;
+  }
+  
+  .hero-header-image {
+    max-width: 180px;
+    margin-bottom: 20px;
   }
   
   .hero-title {
