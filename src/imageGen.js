@@ -2,7 +2,12 @@ import { storage } from './firebase.js';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Base prompt template for consistent high-quality results
-const BASE_PROMPT = `create an image based on the user's prompt.`
+const BASE_PROMPT = `Create an oil painting with visible brushstrokes and canvas texture. 
+The painting should have the qualities of a hand-painted work: impasto technique with thick 
+paint application, natural color mixing on canvas, subtle imperfections, and organic brush marks. 
+Avoid digital smoothness - embrace the textural quality of real oil paint with varied brush 
+directions and paint thickness. Style should evoke traditional figurative oil painting with 
+painterly edges rather than photo-realistic precision`
 
 /**
  * Constructs the full prompt with base template and user input
