@@ -150,9 +150,10 @@ function handleTryThisClick(event) {
   // More detailed prompts that will trigger expansion
   const stylePrompts = {
     'french': 'A romantic French Academic painting featuring elegant figures in classical poses, with dramatic chiaroscuro lighting, rich warm tones, and detailed fabric textures in the style of 19th century salon artists',
+    'canton': 'Retro 70s muscle cars on neon-lit Asian city street, cinematic night scene, vibrant Chinese signage, motion blur, orange and blue color palette',
     'dutch': 'A Dutch Renaissance maritime scene with tall sailing ships navigating turbulent seas under dramatic cloudy skies, featuring rich earth tones and masterful attention to atmospheric perspective and water reflections',
     'japan': 'An Edo period Japanese artwork depicting serene natural elements like cherry blossoms, cranes, or mountain landscapes, rendered in minimalist style with delicate brushwork, subtle colors, and harmonious composition',
-    'edo': 'A contemporary boho abstract artwork featuring flowing organic forms, earthy textures, and warm botanical elements with modern minimalist aesthetics and soft, muted color palette'
+    'edo': 'Modern still life with bold striped or geometric background. Clean composition, flat color areas, thick paint texture. Simple and graphic.'
   };
   
   if (stylePrompts[style] && promptInput) {
