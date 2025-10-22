@@ -17,11 +17,79 @@ body {
   padding: 0 24px;
 }
 
+/* Free Shipping Banner */
+.shipping-banner {
+  background-color: #D4F261;
+  padding: 8px 0;
+  text-align: center;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.shipping-banner p {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 500;
+  margin: 0;
+}
+
 /* Header */
 .header {
-  background-color: #F9FAFB;
+  background-color: white;
   border-bottom: 1px solid #E5E7EB;
   padding: 16px 0;
+}
+
+/* Header Overlay */
+.header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  padding: 16px 0;
+  z-index: 4;
+}
+
+.header-overlay .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-overlay .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.header-overlay .nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.header-overlay .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.2s;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.header-overlay .nav-links a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Hero Separator */
+.hero-separator {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: white;
+  z-index: 4;
+  opacity: 0.8;
 }
 
 .nav {
@@ -54,43 +122,74 @@ body {
 
 /* Hero Section */
 .hero {
-  padding: 40px 0 20px 0;
+  position: relative;
+  padding: 120px 0 60px 0;
   text-align: center;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
-.hero-header-image {
-  max-width: 250px;
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
-  margin-bottom: 24px;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 3;
 }
 
 .hero-title {
   font-size: 48px;
   font-weight: bold;
-  color: #111827;
+  color: white;
   margin-bottom: 16px;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .hero-subtitle {
   font-size: 14px;
-  color: #6B7280;
+  color: white;
   margin-bottom: 32px;
   line-height: 1.5;
+  text-align: center;
 }
 
 
 /* Prompt Input */
 .prompt-section {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .prompt-input-container {
   display: flex;
   align-items: flex-start;
-  max-width: 500px;
+  max-width: 1200px;
   margin: 0 auto;
   background: white;
   border: 2px solid #E5E7EB;
@@ -299,37 +398,37 @@ body {
 
 /* As Seen On Section */
 .as-seen-on {
-  padding: 20px 0 30px 0;
+  padding: 10px 0 40px 0;
   text-align: center;
 }
 
 .as-seen-title {
-  font-size: 12px;
+  font-size: 14px;
   color: #6B7280;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .social-logos {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
 }
 
 .social-logo {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   color: #111827;
 }
 
 .social-logo svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 .social-logo span {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -416,8 +515,40 @@ body {
 
 /* How It Works Section */
 .how-it-works {
+  position: relative;
   padding: 60px 0;
   background-color: white;
+  overflow: hidden;
+}
+
+.how-it-works-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.how-it-works-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.how-it-works-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.how-it-works .container {
+  position: relative;
+  z-index: 3;
 }
 
 .section-title {
@@ -426,6 +557,10 @@ body {
   text-align: center;
   color: #111827;
   margin-bottom: 24px;
+}
+
+.how-it-works .section-title {
+  color: white;
 }
 
 .steps {
@@ -439,6 +574,9 @@ body {
 .step {
   text-align: center;
   padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
 }
 
 .step-content {
@@ -456,6 +594,14 @@ body {
   color: #6B7280;
   line-height: 1.5;
   margin: 0;
+}
+
+.how-it-works .step-content h3 {
+  color: #111827;
+}
+
+.how-it-works .step-content p {
+  color: #6B7280;
 }
 
 /* Recently Created Section */
@@ -1326,9 +1472,17 @@ body {
     padding: 0 16px;
   }
   
-  .hero-header-image {
-    max-width: 180px;
-    margin-bottom: 20px;
+  .hero .container {
+    padding: 0 8px;
+  }
+  
+  .header-overlay .container {
+    padding: 0 16px;
+  }
+  
+  .hero {
+    min-height: 400px;
+    padding: 100px 0 40px 0;
   }
   
   .hero-title {
@@ -1397,7 +1551,7 @@ body {
     flex-direction: column;
     gap: 12px;
     padding: 16px;
-    max-width: calc(100% - 32px);
+    max-width: 100%;
     box-sizing: border-box;
   }
   
@@ -1575,14 +1729,22 @@ body {
     padding: 0 12px;
   }
   
+  .hero .container {
+    padding: 0 4px;
+  }
+  
+  .header-overlay .container {
+    padding: 0 12px;
+  }
+  
   .prompt-input-container {
-    max-width: calc(100% - 24px);
+    max-width: 100%;
     padding: 12px;
     gap: 10px;
   }
   
   .prompt-input-container.expanded {
-    max-width: calc(100% - 16px);
+    max-width: 100%;
   }
   
   .prompt-input {
