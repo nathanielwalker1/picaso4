@@ -182,6 +182,91 @@
       </div>
     </section>
 
+    <!-- Second Trending Section -->
+    <section class="trending-section">
+      <div class="container">
+        <div class="carousel-container">
+          <button class="carousel-scroll-btn carousel-scroll-left" id="trendingScrollLeftBtn2" aria-label="Scroll left">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"></polyline>
+            </svg>
+          </button>
+          <div class="trending-carousel" id="trendingCarousel2">
+            <div class="trending-item">
+              <div class="trending-card" data-style="googie">
+                <div class="trending-card-image">
+                  <img src="/docs/googiecore.png" alt="1950s Googie Core">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">1950s Googie Core</h3>
+                  <button class="generate-btn" data-style="googie">
+                    Generate
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="trending-item">
+              <div class="trending-card" data-style="gouaches">
+                <div class="trending-card-image">
+                  <img src="/docs/gouaches mosaico.png" alt="Gouaches découpées">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">Gouaches Découpées</h3>
+                  <button class="generate-btn" data-style="gouaches">
+                    Generate
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="trending-item">
+              <div class="trending-card coming-soon" data-style="coming-soon-1">
+                <div class="trending-card-image">
+                  <img src="/docs/comingsoon1.png" alt="Coming Soon">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">?</h3>
+                  <button class="generate-btn coming-soon-btn" disabled>
+                    Coming Soon
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="trending-item">
+              <div class="trending-card coming-soon" data-style="coming-soon-2">
+                <div class="trending-card-image">
+                  <img src="/docs/comingsoon2.jpg" alt="Coming Soon">
+                </div>
+                <div class="trending-card-overlay">
+                  <span class="trending-card-label">STYLE</span>
+                  <h3 class="trending-card-title">?</h3>
+                  <button class="generate-btn coming-soon-btn" disabled>
+                    Coming Soon
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-scroll-btn carousel-scroll-right" id="trendingScrollRightBtn2" aria-label="Scroll right">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- As Seen On Section -->
     <section class="as-seen-on">
       <div class="container">
@@ -215,21 +300,21 @@
           <div class="step">
             <div class="step-content">
               <h3><strong>1. Create</strong></h3>
-              <p>Describe your dream artwork. Try to be descriptive in your prompt or choose our default prompts on the "Trending styles" section above.</p>
+              <p>Describe your dream artwork. Try to be descriptive. You can also choose a trending style on the "Trending" section above.</p>
             </div>
           </div>
           
           <div class="step">
             <div class="step-content">
               <h3><strong>2. Finalize</strong></h3>
-              <p>Once you see your initial design, you have the option to tweak or regenerate. If satisfied, add your delivery address and checkout.</p>
+              <p>Once your design is made, feel free to tweak or recreate it. If you like what you see, you will be taken to a checkout page.</p>
             </div>
           </div>
           
           <div class="step">
             <div class="step-content">
               <h3><strong>3. Admire</strong></h3>
-              <p>Your art will be printed on premium matte canvas, delivered to your door. Hang on your wall and admire. It's quite a sight.</p>
+              <p>Each piece of art is printed on matte canvas, giving it a subtle texture over a firm wooden frame.</p>
             </div>
           </div>
         </div>
@@ -262,10 +347,7 @@
   <div id="loadingScreen" class="loading-screen">
     <div class="loading-content">
       <div class="loading-icon">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/>
-          <path d="m2.5 21.5 5.25-5.25L10 18.5 21.5 7l-3.5-3.5L6.5 15 4.25 12.75"/>
-        </svg>
+        <img src="/docs/PICASO.png" alt="PICASO" width="48" height="48">
       </div>
       <h2 class="loading-title">Creating your masterpiece...</h2>
       <div class="loading-bar">

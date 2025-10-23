@@ -17,6 +17,8 @@ const loadingText = document.getElementById('loadingText');
 const loadingPercentage = document.getElementById('loadingPercentage');
 const trendingScrollLeftBtn = document.getElementById('trendingScrollLeftBtn');
 const trendingScrollRightBtn = document.getElementById('trendingScrollRightBtn');
+const trendingScrollLeftBtn2 = document.getElementById('trendingScrollLeftBtn2');
+const trendingScrollRightBtn2 = document.getElementById('trendingScrollRightBtn2');
 
 // State
 
@@ -142,6 +144,56 @@ function scrollTrendingCarouselLeft() {
   }
 }
 
+// Scroll second trending carousel right with infinite loop
+function scrollTrendingCarousel2Right() {
+  const carousel = document.getElementById('trendingCarousel2');
+  if (carousel) {
+    console.log('Scrolling second trending carousel right...'); // Debug log
+    const scrollAmount = 244; // Item width (220px) + gap (24px) - exactly one image
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    
+    // Check if we're at or near the end
+    if (carousel.scrollLeft >= maxScroll - 10) {
+      // Loop back to the beginning
+      carousel.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      // Normal scroll right
+      carousel.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+
+// Scroll second trending carousel left with infinite loop
+function scrollTrendingCarousel2Left() {
+  const carousel = document.getElementById('trendingCarousel2');
+  if (carousel) {
+    console.log('Scrolling second trending carousel left...'); // Debug log
+    const scrollAmount = 244; // Item width (220px) + gap (24px) - exactly one image
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    
+    // Check if we're at or near the beginning
+    if (carousel.scrollLeft <= 10) {
+      // Loop to the end
+      carousel.scrollTo({
+        left: maxScroll,
+        behavior: 'smooth'
+      });
+    } else {
+      // Normal scroll left
+      carousel.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+
 // Try This button/card functionality
 function handleTryThisClick(event) {
   const element = event.currentTarget;
@@ -153,7 +205,9 @@ function handleTryThisClick(event) {
     'canton': 'Retro 70s muscle cars on neon-lit Asian city street, cinematic night scene, vibrant Chinese signage, motion blur, orange and blue color palette',
     'dutch': 'A Dutch Renaissance maritime scene with tall sailing ships navigating turbulent seas under dramatic cloudy skies, featuring rich earth tones and masterful attention to atmospheric perspective and water reflections',
     'japan': 'An Edo period Japanese artwork depicting serene natural elements like cherry blossoms, cranes, or mountain landscapes, rendered in minimalist style with delicate brushwork, subtle colors, and harmonious composition',
-    'edo': 'Modern still life with bold striped or geometric background. Clean composition, flat color areas, thick paint texture. Simple and graphic.'
+    'edo': 'Modern still life with bold striped or geometric background. Clean composition, flat color areas, thick paint texture. Simple and graphic.',
+    'googie': '1950s vintage collage of mid-century modern indoor pool, dramatic angular skylight showing starry night sky, palm trees, turquoise water, beige walls, small swimmers, retro magazine aesthetic, clean vibrant colors',
+    'gouaches': 'Matisse-inspired gouache cutout style artwork featuring bold organic shapes and forms, vibrant flat colors including yellow, orange, red, pink, blue, and green, simple botanical or abstract motifs arranged in a mosaic-like composition'
   };
   
   if (stylePrompts[style] && promptInput) {
@@ -252,6 +306,15 @@ if (trendingScrollLeftBtn) {
 
 if (trendingScrollRightBtn) {
   trendingScrollRightBtn.addEventListener('click', scrollTrendingCarouselRight);
+}
+
+// Second Trending Carousel functionality
+if (trendingScrollLeftBtn2) {
+  trendingScrollLeftBtn2.addEventListener('click', scrollTrendingCarousel2Left);
+}
+
+if (trendingScrollRightBtn2) {
+  trendingScrollRightBtn2.addEventListener('click', scrollTrendingCarousel2Right);
 }
 
 
