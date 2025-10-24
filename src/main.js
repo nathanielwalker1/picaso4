@@ -207,7 +207,7 @@ function handleTryThisClick(event) {
     'japan': 'An Edo period Japanese artwork depicting serene natural elements like cherry blossoms, cranes, or mountain landscapes, rendered in minimalist style with delicate brushwork, subtle colors, and harmonious composition',
     'edo': 'Modern still life with bold striped or geometric background. Clean composition, flat color areas, thick paint texture. Simple and graphic.',
     'googie': '1950s vintage collage of mid-century modern indoor pool, dramatic angular skylight showing starry night sky, palm trees, turquoise water, beige walls, small swimmers, retro magazine aesthetic, clean vibrant colors',
-    'gouaches': 'Matisse-inspired gouache cutout style artwork featuring bold organic shapes and forms, vibrant flat colors including yellow, orange, red, pink, blue, and green, simple botanical or abstract motifs arranged in a mosaic-like composition'
+    'gouaches': 'Matisse-inspired gouache 3x3 grid cutout style artwork featuring bold organic shapes and forms, vibrant flat colors including yellow, orange, red, pink, blue, and green, simple botanical or abstract motifs arranged in a mosaic-like composition'
   };
   
   if (stylePrompts[style] && promptInput) {
