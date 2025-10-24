@@ -41,7 +41,7 @@ export default async function handler(req, res) {
               description: 'Gallery-quality artwork printed on premium matte canvas with Ayous wood frame',
               images: [imageUrl], // Show the generated artwork in checkout
             },
-            unit_amount: 9900, // $99.00 in cents
+            unit_amount: 4900, // $49.00 in cents
           },
           quantity: 1,
         },
