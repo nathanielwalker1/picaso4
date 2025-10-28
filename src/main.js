@@ -201,6 +201,7 @@ function handleTryThisClick(event) {
   
   // More detailed prompts that will trigger expansion
   const stylePrompts = {
+    'y2k': 'Y2K dreamcore liminal space, flooded indoor pool with blue grid tiles, doorway opening to surreal sky with white clouds, shallow water with rippling reflections, saturated cyan blue color palette, vaporwave aesthetic, shot on early 2000s digital camera, soft focus, slight film grain, nostalgic dreamy atmosphere',
     'french': 'A romantic French Academic painting featuring elegant figures in classical poses, with dramatic chiaroscuro lighting, rich warm tones, and detailed fabric textures in the style of 19th century salon artists',
     'canton': 'Retro 70s muscle cars on neon-lit Asian city street, cinematic night scene, vibrant Chinese signage, motion blur, orange and blue color palette',
     'dutch': 'A Dutch Renaissance maritime scene with tall sailing ships navigating turbulent seas under dramatic cloudy skies, featuring rich earth tones and masterful attention to atmospheric perspective and water reflections',
