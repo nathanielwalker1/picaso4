@@ -1832,3 +1832,31 @@ body {
     font-size: 15px;
   }
 }
+
+/* Artwork Display */
+.artwork-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+  background: transparent;
+  min-height: 600px;
+}
+
+.artwork-container {
+  padding: 60px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+}
+
+.artwork-container img {
+  display: block;
+  max-width: 380px;
+  width: 100%;
+  height: auto;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.18),
+    0 16px 32px rgba(0, 0, 0, 0.22),
+    0 24px 48px rgba(0, 0, 0, 0.15);
+}
